@@ -1,37 +1,41 @@
-//Time Complexity: O(n)
-
 package practice;
 
-public class Pangram {
+public class TwoArraysEquivalent {
 
-	public boolean checkIfPangram(String sentence) {
+	public static boolean arrayStringsAreEqual(String[] word1, String[] word2) {
 		
-		int n = sentence.length();
-		boolean check[] = new boolean[26];
+		String str1="";
+		String str2="";
 		
-		for(int i =0;i<n;i++)
+		StringBuffer a = new StringBuffer();
+		StringBuffer b = new StringBuffer();
+		for(int i =0;i<word1.length;i++)
 		{
-			int index = (int)( sentence.charAt(i)-97);
-			check[index]=true;
+			a.append(word1[i]);
 		}
 		
-		for(boolean i:check)
-		{
-			if(i!=true)
-			{
-				return false;
-			}
-		}
+		str1 = a.toString();
 		
-		return true;
+		for(int i=0;i<word2.length;i++)
+		{
+			b.append(word2[i]);
+		}
+		str2=b.toString();
+		if(str1.equals(str2))
+		{
+			return true;
+		}
+		return false;
 	}
-	
-	
 
 	public static void main(String[] args) {
-		String s = "thequickbrownfoxjumpsoverthelazydog";
-		Pangram p = new Pangram();
-		System.out.println(p.checkIfPangram(s));
+		String a[] = {"abc", "d", "defg"};
+		String b[] = {"abcddefg"};
+		
+		boolean ans = arrayStringsAreEqual(a, b);
+		System.out.println(ans);
+		
+		
 	}
 
 }
