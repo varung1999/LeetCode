@@ -1,3 +1,5 @@
+//Time Complexity: O(n)
+
 package practice;
 
 public class Pangram {
