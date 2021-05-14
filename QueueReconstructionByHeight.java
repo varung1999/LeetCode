@@ -46,9 +46,6 @@ public class QueueReconstructionbyHeight {
 					}
 					System.out.println();
 				}
-
-		
-
 	}
 
 }
