@@ -1,6 +1,20 @@
 import java.util.Scanner;
 
 public class BinaryNumberToInteger {
+	
+	/*class Solution {
+ public static int getDecimalValue(ListNode head) {
+		int value = 0;
+     while(head!=null)
+     {
+         value = value*2 +((head.val==0)?0:1);
+         head=head.next;
+         
+     }
+     return value;
+	}
+}
+  */
 
 	public static int getDecimalValue(ListNode head) {
 		int sum =0;
