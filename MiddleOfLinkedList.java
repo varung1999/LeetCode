@@ -1,6 +1,29 @@
 import java.util.*;
 
 public class MiddleOfLinkedList {
+	
+	/* class Solution {
+  public static ListNode middleNode(ListNode head) {
+      if(head==null || head.next==null)
+      {
+          return head;
+      }
+		ListNode slow = head;
+      ListNode fast = head.next;
+      
+      while(fast!=null)
+      {
+          slow=slow.next;
+          fast=fast.next;
+          if(fast!=null)
+          {
+              fast=fast.next;
+          }
+      }
+      return slow;
+	}
+}
+*/
 
 	 public static ListNode middleNode(ListNode head) {
 			ListNode c = head;
