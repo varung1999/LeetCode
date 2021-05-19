@@ -2,6 +2,39 @@ import java.util.Scanner;
 
 public class SwappingNodesInLL {
 
+
+/*Best solution: Run time 2ms
+
+ public static ListNode swapNodes(ListNode head, int k) {
+		
+		ListNode current=head,prev=head,k1=null;
+		
+		int i =1;
+		while(i<k && current.next!=null)
+		{
+			i++;
+			current=current.next;
+		}
+		
+		k1=current;
+		
+		while(current.next!=null)
+		{
+			current=current.next;
+			prev=prev.next;
+		}
+		
+		int temp = k1.val;
+		k1.val=prev.val;
+		prev.val=temp;
+		
+		return head;
+		
+		
+	}
+
+
+*/
 	public static ListNode swapNodes(ListNode head, int k) {
 		
 		if(k==0)
