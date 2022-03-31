@@ -28,7 +28,7 @@ class Solution {
 
 
 //using Priority Queue
-//Time Complexity: O(n)
+//Time Complexity: O(n log n) since adding an element in priority queue takes O(log n)
 class Solution {
     public int findKthLargest(int[] nums, int k) {
         
