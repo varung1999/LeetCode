@@ -1,3 +1,5 @@
+//using TreeMap
+//Time Complexity: O(n)
 class Solution {
     public int findKthLargest(int[] nums, int k) {
         
@@ -19,6 +21,28 @@ class Solution {
             }
         }
         return -1;
+        
+    }
+}
+
+
+
+//using Priority Queue
+//Time Complexity: O(n)
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+        
+        for(int i : nums)
+        {
+            queue.add(i);
+            if(queue.size()>k)
+            {
+                queue.remove();
+            }
+        }
+        return queue.remove();
         
     }
 }
