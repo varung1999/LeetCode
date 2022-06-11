@@ -18,3 +18,9 @@ class FibonacciNumber {
         return dp[n];
     }
 }
+
+/*
+    TC = O(N)
+    SC = O(N)
+
+*/
