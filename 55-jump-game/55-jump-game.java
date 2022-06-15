@@ -1,15 +1,34 @@
 class Solution {
+    
+    HashSet<Integer> visited;
+    
     public boolean canJump(int[] nums) {
+        if(nums == null || nums.length<2) return true;
         
-        int last = nums.length - 1;
-        for(int i = last;i>=0;i--)
+        Queue<Integer> q = new LinkedList<>();
+        visited = new HashSet<>();
+        
+        q.add(0);
+        visited.add(0);
+        
+        //BFS
+        
+        while(!q.isEmpty())
         {
-            if(i+nums[i]>=last)
+            int curr = q.poll();
+            
+            for(int i = 1;i<=nums[curr];i++)
             {
-                last = i;
+                int idx = i + curr;
+                
+                if(idx == nums.length - 1) return true;
+                if(!visited.contains(idx)) {
+                    q.add(idx);
+                    visited.add(idx);
+                }
             }
         }
         
-        return last == 0;
+        return false;
     }
 }
