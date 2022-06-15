@@ -1,38 +1,23 @@
 class Solution {
     public int jump(int[] nums) {
-        if(nums == null || nums.length < 2) return 0;
         
-        Queue<Integer> q = new LinkedList<>();
-        HashSet<Integer> visited = new HashSet<>();
+        if(nums == null || nums.length<2) return 0;
         
-        q.add(0);
-        visited.add(0);
+        int jumps = 1;
+        int curr = nums[0];
+        int next = nums[0];
         
-        int level = 0;
-        
-        while(!q.isEmpty())
+        for(int i = 0;i<nums.length;i++)
         {
-            int size = q.size();
-            for(int i = 0;i<size;i++)
+            next = Math.max(next,i + nums[i]);
+            if(i< nums.length-1 && i == curr)
             {
-                int curr = q.poll();
-                
-                for(int j = 1;j<=nums[curr];j++)
-                {
-                    int idx = j + curr;
-                    
-                    if(idx >= nums.length - 1) return level + 1;
-                    
-                    if(!visited.contains(idx))
-                    {
-                        visited.add(idx);
-                        q.add(idx);
-                    }
-                }
+                jumps++;
+                curr = next;
             }
-            level++;
         }
         
-        return -1;
+        return jumps;
+        
     }
 }
