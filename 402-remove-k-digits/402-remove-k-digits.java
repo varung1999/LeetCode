@@ -7,13 +7,13 @@ class Solution {
         
         for(int i =0;i<num.length();i++)
         {
-            while(!s.isEmpty() && temp!=0 && num.charAt(i)-'0'<s.peek())
+            while(!s.isEmpty() && temp!=0 && Integer.parseInt(String.valueOf(num.charAt(i)))<s.peek())
             {
                 s.pop();
                 temp--;
             }
             
-            s.push(num.charAt(i)-'0');
+            s.push(Integer.parseInt(String.valueOf(num.charAt(i))));
         }
         
         if(temp>0)
