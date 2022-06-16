@@ -1,5 +1,6 @@
 class Solution {
     int total;
+    boolean isIsland;
     public int countSubIslands(int[][] grid1, int[][] grid2) {
         if(grid2 == null || grid2.length == 0) return 0;
         
@@ -10,10 +11,13 @@ class Solution {
             {
                 if(grid2[i][j] == 1)
                 {
-                    if(dfs(grid1,grid2,i,j)){
-                        total++;
-                    }
-                    
+                    isIsland = true;
+                    dfs(grid1,grid2,i,j);
+                        
+                        if(isIsland)
+                        {
+                            total++;
+                        } 
                 }
             }
         }
@@ -22,22 +26,24 @@ class Solution {
         
     }
     
-    private boolean dfs(int[][] grid1,int[][] grid2,int r,int c)
+    private void dfs(int[][] grid1,int[][] grid2,int r,int c)
     {
         //base
-        if(r<0 || c<0 || r>=grid1.length || c>=grid1[0].length || grid2[r][c]!=1) return true;
+        if(r<0 || c<0 || r>=grid1.length || c>=grid1[0].length || grid2[r][c]!=1) return;
         
-        if(grid1[r][c]!=grid2[r][c]) return false;
+        if(grid1[r][c]!=grid2[r][c]){
+            isIsland = false;
+        }
         
         //logic
         grid1[r][c]=0;
         grid2[r][c] = 0;
         
-        boolean a = dfs(grid1,grid2,r-1,c);
-        boolean b = dfs(grid1,grid2,r+1,c);
-        boolean x = dfs(grid1,grid2,r,c-1);
-        boolean d = dfs(grid1,grid2,r,c+1);
+        dfs(grid1,grid2,r-1,c);
+        dfs(grid1,grid2,r+1,c);
+        dfs(grid1,grid2,r,c-1);
+        dfs(grid1,grid2,r,c+1);
         
-        return a && b && x && d;
+        
     }
 }
