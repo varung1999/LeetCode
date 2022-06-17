@@ -11,11 +11,9 @@ class Solution {
         
         int[][] dirs = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
         
-        boolean[][] visited = new boolean[row][col];
-        
         Queue<int[]> q = new LinkedList<>();
         q.add(new int[]{0,0});
-        // visited[0][0] = true;
+        
         grid[0][0] = Integer.MIN_VALUE;
         
         while(!q.isEmpty())
@@ -41,8 +39,7 @@ class Solution {
                     {
                         continue;
                     }
-                    
-                    // visited[r][c] = true;
+        
                     grid[r][c] = Integer.MIN_VALUE;
                     q.add(new int[]{r,c});
                 }
