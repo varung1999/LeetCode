@@ -15,7 +15,8 @@ class Solution {
         
         Queue<int[]> q = new LinkedList<>();
         q.add(new int[]{0,0});
-        visited[0][0] = true;
+        // visited[0][0] = true;
+        grid[0][0] = Integer.MIN_VALUE;
         
         while(!q.isEmpty())
         {
@@ -36,12 +37,13 @@ class Solution {
                     int r = dir[0] + curr[0];
                     int c = dir[1] + curr[1];
                     
-                    if(r<0 || c<0 || r>=row || c>=col || visited[r][c] || grid[r][c] == 1)
+                    if(r<0 || c<0 || r>=row || c>=col || grid[r][c]<0 || grid[r][c] == 1)
                     {
                         continue;
                     }
                     
-                    visited[r][c] = true;
+                    // visited[r][c] = true;
+                    grid[r][c] = Integer.MIN_VALUE;
                     q.add(new int[]{r,c});
                 }
             }
