@@ -5,7 +5,7 @@ class Solution {
         int n = nums.length;
         int count = 0;
         
-        int[] dp = new int[n];
+        int prev = 0;
         
         //bottom to top 
         
@@ -13,8 +13,12 @@ class Solution {
         {
             if(nums[i+2] - nums[i+1] == nums[i+1] - nums[i])
             {
-                dp[i] = dp[i+1]+1;
-                count = count+dp[i];
+                prev = prev + 1;
+                count+=prev;
+            }
+            else
+            {
+                prev = 0;
             }
         }
         
