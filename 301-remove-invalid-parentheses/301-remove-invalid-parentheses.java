@@ -12,19 +12,16 @@ class Solution {
         
         q.add(s);
         set.add(s);
-        while(!q.isEmpty() )
+        while(!q.isEmpty())
         {
-            int size = q.size();
-            
-            
+                int size = q.size();
                 String curr = q.poll();
                 
                 if(isValid(curr))
                 {
-                    
-                        set.add(curr);
-                        result.add(curr);
-                        found = true;
+                    set.add(curr);
+                    result.add(curr);
+                    found = true;
                     
                 }
                 else
