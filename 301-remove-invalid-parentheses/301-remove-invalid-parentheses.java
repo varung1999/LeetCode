@@ -19,7 +19,7 @@ class Solution {
                 
                 if(isValid(curr))
                 {
-                    set.add(curr);
+                    
                     result.add(curr);
                     found = true;
                     
