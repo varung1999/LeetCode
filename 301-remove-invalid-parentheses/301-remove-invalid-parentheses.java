@@ -12,12 +12,11 @@ class Solution {
         
         q.add(s);
         set.add(s);
-        while(!q.isEmpty() && !found)
+        while(!q.isEmpty() )
         {
             int size = q.size();
             
-            for(int i =0;i<size;i++)
-            {
+            
                 String curr = q.poll();
                 
                 if(isValid(curr))
@@ -44,7 +43,7 @@ class Solution {
                         }
                     }
                 }
-            }
+            
         }
         
         return result;
