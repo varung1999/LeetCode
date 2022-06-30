@@ -10,12 +10,17 @@ class Solution {
         
         while(i<=j)
         {
-            count++;
+            
             if(people[i]+people[j]<=limit)
             {
+                count++;
                 i++;
+                j--;
             }
-            j--;
+            else{
+                count++;
+                j--;
+            }
         }
         
         return count;
