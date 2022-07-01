@@ -18,15 +18,14 @@ class Solution {
         
         for(int i =0;i<boxTypes.length;i++)
         {
-            int count = boxTypes[i][0];
+            int count = Math.min(boxTypes[i][0],temp);
             int multiply = boxTypes[i][1];
             
-            while(temp>0 &&count>0)
-            {
-                result+=multiply;
-                count--;
-                temp--;
-            }
+            result += count*multiply;
+            
+            temp-=count;
+            
+            if(temp == 0) return result;
         }
         
         return result;
