@@ -1,21 +1,21 @@
 class Solution {
     public int singleNumber(int[] nums) {
-        if(nums == null || nums.length == 0) return 0;
+          if(nums == null || nums.length == 0) return 0;
         
-        HashMap<Integer,Integer> map = new HashMap<>();
+        HashSet<Integer> set = new HashSet<>();
         
         for(int i:nums)
         {
-            map.put(i,map.getOrDefault(i,0)+1);
-        }
-        
-        for(Map.Entry<Integer,Integer> it: map.entrySet())
-        {
-            if(it.getValue()==1)
+            if(set.contains(i))
             {
-                return it.getKey();
+                set.remove(i);
+            }
+            else
+            {
+                set.add(i);
             }
         }
-        return -1;
-}
+        
+        return set.stream().findFirst().get();
+    }
 }
