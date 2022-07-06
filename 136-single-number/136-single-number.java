@@ -1,21 +1,14 @@
 class Solution {
     public int singleNumber(int[] nums) {
-          if(nums == null || nums.length == 0) return 0;
+        if(nums == null || nums.length == 0) return 0;
         
-        HashSet<Integer> set = new HashSet<>();
+        int result = 0;
         
         for(int i:nums)
         {
-            if(set.contains(i))
-            {
-                set.remove(i);
-            }
-            else
-            {
-                set.add(i);
-            }
+            result^=i;
         }
         
-        return set.stream().findFirst().get();
+        return result;
     }
 }
