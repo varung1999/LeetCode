@@ -14,31 +14,29 @@
  * }
  */
 class Solution {
+    int result;
     public int rangeSumBST(TreeNode root, int low, int high) {
         if(root == null) return 0;
+        result = 0;
         
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(root);
-        int result = 0;
-        
-        while(!q.isEmpty())
-        {
-            TreeNode curr = q.poll();
-            if(curr.val>=low && curr.val<=high)
-            {
-                result+=curr.val;
-            }
-            
-            if(curr.left!=null)
-            {
-                q.add(curr.left);
-            }
-            if(curr.right!=null)
-            {
-                q.add(curr.right);
-            }
-        }
+        dfs(root,low,high);
         
         return result;
+    }
+    
+    private void dfs(TreeNode root, int low,int high)
+    {
+        if(root == null) return;
+        if(root.val>=low && root.val<=high)
+            result+=root.val;
+        
+        if(root.left!=null)
+        {
+            dfs(root.left,low,high);
+        }
+        if(root.right!=null)
+        {
+            dfs(root.right,low,high);
+        }
     }
 }
