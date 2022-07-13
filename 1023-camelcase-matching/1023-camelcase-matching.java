@@ -3,33 +3,36 @@ class Solution {
     public List<Boolean> camelMatch(String[] queries, String pattern) {
         result = new ArrayList<>();
         
-        char[] pArray = pattern.toCharArray();
         for(String q: queries)
         {
-            char[] qArray = q.toCharArray();
-            boolean ans = match(qArray,pArray);
             
-            result.add(ans);
+            result.add(match(q,pattern));
         }
         
         return result;
     }
     
-    private boolean match(char[] querry, char[] pattern)
+    private boolean match(String q, String p)
     {
-        char[] q = querry;
-        char[] p = pattern;
-        int i = 0, j = 0;
-        while(i < q.length) {
-            if(j < p.length && q[i] == p[j]) {
+        int i =0,j=0;
+        
+        while(i<q.length())
+        {
+            if(j<p.length() && q.charAt(i) == p.charAt(j))
+            {
                 i++;
                 j++;
-            }else if(q[i] >= 'A' && q[i] <= 'Z') {
+            }
+            else if(q.charAt(i)>='A' && q.charAt(i)<='Z')
+            {
                 return false;
-            }else {
+            }
+            else
+            {
                 i++;
             }
         }
-        return j==p.length;
+        
+        return j==p.length();
     }
 }
