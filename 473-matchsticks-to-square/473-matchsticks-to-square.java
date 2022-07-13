@@ -32,13 +32,16 @@ class Solution {
         {
             if(matchsticks[index] + square[i] <= side)
             {
+                //action
                 square[i] = square[i] + matchsticks[index];
                 
+                //recurse
                 if(helper(matchsticks,side,index + 1, square))
                 {
                     return true;
                 }
                 
+                //backtrack
                 square[i]=square[i] - matchsticks[index];
             }
         }
@@ -47,8 +50,8 @@ class Solution {
     }
     
     private void reverse(int[] match)
-    {
-        int left =0,right = match.length -1;
+    { 
+        int left =0, right = match.length -1;
         
         while(left<=right)
         {
