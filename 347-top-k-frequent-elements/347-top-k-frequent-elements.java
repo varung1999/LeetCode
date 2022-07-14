@@ -6,18 +6,23 @@ class Solution {
             map.put(i,map.getOrDefault(i,0)+1);
         }
         
-        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b) -> map.get(b) - map.get(a));
+        int[] result = new int[k];
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b)-> a[1] - b[1]);
         
-        for(int i: map.keySet())
+        for(int key: map.keySet())
         {
-            pq.add(i);
+            pq.add(new int[]{key,map.get(key)});
+            if(pq.size()>k)
+            {
+                pq.poll();
+            }
         }
         
-        int[] result = new int[k];
-        
-        for(int i =0;i<k;i++)
+        while(!pq.isEmpty())
         {
-            result[i] = pq.poll();
+            int[] curr = pq.poll();
+            result[k-1] = curr[0];
+            k--;
         }
         
         return result;
