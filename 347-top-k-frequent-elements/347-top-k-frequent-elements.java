@@ -22,15 +22,16 @@ class Solution {
         }
         
         int[] result = new int[k];
+        int x = 0;
         for(int i = max;i>=0 && k>=0;i--)
         {
             List<Integer> li = list[i];
             if(li!=null)
             {
-                for(int j =0;k>0 && j<li.size();j++)
+                for(int j =0;x<k && j<li.size();j++)
                 {
-                    result[k-1] = li.get(j);
-                    k--;
+                    result[x] = li.get(j);
+                    x++;
                 }
             }
         }
