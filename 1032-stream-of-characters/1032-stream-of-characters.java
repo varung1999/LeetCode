@@ -51,11 +51,12 @@ class StreamChecker {
             {
                 return false;
             }
-            if(curr.children[c-'a'].isEnd == true)
+            curr = curr.children[c-'a'];
+            if(curr.isEnd == true)
             {
                 return true;
             }
-            curr = curr.children[c-'a'];
+            
         }
         
         return false;
