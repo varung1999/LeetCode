@@ -1,21 +1,13 @@
 class MyHashMap {
 
     class Node{
-        int key, value;
+        int key,value;
         Node next;
         
-        public Node(int key,int value){
+        public Node(int key, int value){
             this.key = key;
             this.value = value;
         }
-    }
-    
-    int buckets;
-    Node[] nodes;
-    
-    public MyHashMap() {
-        buckets = 10000;
-        nodes = new Node[buckets];
     }
     
     private Node find(Node head, int key)
@@ -32,9 +24,19 @@ class MyHashMap {
         return prev;
     }
     
+    int buckets;
+    Node[] nodes;
+    
     private int getHash(int key)
     {
         return Integer.hashCode(key)%buckets;
+    }
+    
+    public MyHashMap() {
+        
+        buckets = 10000;
+        nodes = new Node[buckets];
+        
     }
     
     public void put(int key, int value) {
@@ -60,7 +62,6 @@ class MyHashMap {
         {
             return -1;
         }
-        
         Node prev = find(nodes[index],key);
         if(prev.next == null)
         {
@@ -81,6 +82,7 @@ class MyHashMap {
         {
             return;
         }
+        
         prev.next = prev.next.next;
     }
 }
