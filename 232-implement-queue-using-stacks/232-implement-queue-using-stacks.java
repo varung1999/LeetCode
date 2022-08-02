@@ -5,7 +5,6 @@ class MyQueue {
     public MyQueue() {
         in = new Stack<>();
         out = new Stack<>();
-        
     }
     
     public void push(int x) {
@@ -25,12 +24,11 @@ class MyQueue {
                 out.push(in.pop());
             }
         }
-        
         return out.peek();
     }
     
     public boolean empty() {
-        return out.isEmpty() && in.isEmpty();
+        return in.isEmpty() && out.isEmpty();
     }
 }
 
