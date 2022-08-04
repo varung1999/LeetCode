@@ -1,8 +1,11 @@
 class Solution {
+    boolean flag;
+    ArrayList<ArrayList<Integer>> adjList;
+    boolean visited[];
     public boolean validPath(int n, int[][] edges, int source, int destination) {
         if(edges==null || edges.length == 0) return true;
         
-        ArrayList<ArrayList<Integer>> adjList = new ArrayList<>();
+        adjList = new ArrayList<>();
         for(int i=0;i<n;i++)
         {
             adjList.add(i,new ArrayList<>());
@@ -14,30 +17,36 @@ class Solution {
             adjList.get(edges[i][1]).add(edges[i][0]);
         }
         
-        boolean[] visited = new boolean[n];
+        flag = false;
+        visited = new boolean[n];
         
-        Queue<Integer> q = new LinkedList<>();
-        q.add(source);
-        //System.out.println("Hello");
-        while(!q.isEmpty())
-        {
-            
-            int curr = q.poll();
-            visited[curr]= true;
-            if(curr == destination){
-                //System.out.println("reached");
-                return true;
-            }
-            
-            for(int nodes: adjList.get(curr))
-            {
-                if(visited[nodes] == false)
-                {
-                    q.add(nodes);
-                }
-            }
-        }
-        return false;
+        dfs(source,destination);
+        return flag;
     }
+    
+    private void dfs(int start, int end)
+    {
+        if(visited[start] == true || flag == true)
+        {
+            return;
+        }
+        visited[start] = true;
+        for(int edges: adjList.get(start))
+        {
+            if(edges == end)
+            {
+                flag = true;
+                break;
+            }
+            
+            if(visited[edges]==false)
+            {
+                dfs(edges,end);
+            }
+            
+    
+        }
+    }
+    
     
 }
