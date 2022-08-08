@@ -29,7 +29,7 @@ class Solution {
             }
             
             //right to left
-            if(top<=bottom && left<=right){
+            if(top<=bottom){
             for(int j = right;j>=left;j--)
             {
                 result.add(matrix[bottom][j]);
@@ -39,7 +39,7 @@ class Solution {
             }
             
             //bottom to top
-            if(top<=bottom && left<=right){
+            if(left<=right){
             for(int i = bottom;i>=top;i--)
             {
                 result.add(matrix[i][left]);
