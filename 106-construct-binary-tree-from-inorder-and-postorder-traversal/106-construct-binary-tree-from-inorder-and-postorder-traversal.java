@@ -14,29 +14,34 @@
  * }
  */
 class Solution {
+    HashMap<Integer,Integer> map;
+    int idx;
     public TreeNode buildTree(int[] inorder, int[] postorder) {
         if(inorder == null || inorder.length == 0 || postorder.length == 0) return null;
-        
-        int rootIdx = -1;
-        int rootVal = postorder[postorder.length - 1];
-        TreeNode root = new TreeNode(rootVal);
+        map = new HashMap<>();
         
         for(int i =0;i<inorder.length;i++)
         {
-            if(inorder[i]==rootVal){
-                rootIdx = i;
-                break;
-            }
+            map.put(inorder[i],i);
         }
+        idx = postorder.length - 1;
+        return helper(postorder,0,postorder.length - 1);
+
+    }
+    
+    private TreeNode helper(int[] postorder, int start, int end)
+    {
+        //base
+        if(start>end) return null;
         
+        //logic
+        int rootVal = postorder[idx];
+        idx--;
+        TreeNode root = new TreeNode(rootVal);
+        int rootIdx = map.get(rootVal);
         
-        int[] inorderLeft = Arrays.copyOfRange(inorder,0,rootIdx);
-        int[] inorderRight = Arrays.copyOfRange(inorder,rootIdx+1,inorder.length);
-        int[] postorderLeft = Arrays.copyOfRange(postorder,0,rootIdx);
-        int[] postorderRight = Arrays.copyOfRange(postorder,rootIdx,postorder.length  - 1);
-        
-        root.left = buildTree(inorderLeft,postorderLeft);
-        root.right = buildTree(inorderRight,postorderRight);
+        root.right = helper(postorder,rootIdx+1,end);
+        root.left  = helper(postorder,start,rootIdx-1);
         
         return root;
     }
