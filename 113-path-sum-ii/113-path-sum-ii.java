@@ -36,12 +36,13 @@ class Solution {
         if(root.left == null && root.right == null)
         {
             if(currSum  == target){
-                result.add(temp);
-                return;
+                result.add(new ArrayList<>(temp));
             }
         }
         
-        helper(root.left,currSum,target,new ArrayList<>(temp));
-        helper(root.right,currSum,target,new ArrayList<>(temp));
+        helper(root.left,currSum,target,temp);
+        helper(root.right,currSum,target,temp);
+        
+        temp.remove(temp.size()-1);
     }
 }
