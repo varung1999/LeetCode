@@ -14,22 +14,25 @@
  * }
  */
 class Solution {
+    boolean isValid;
     public boolean isSymmetric(TreeNode root) {
         if(root == null) return true;
         
-        
-        return helper(root.left, root.right); 
-        
+        isValid = true;
+        dfs(root.left,root.right);
+        return isValid;
     }
     
-    private boolean helper(TreeNode root1, TreeNode root2)
+    private void dfs(TreeNode left, TreeNode right)
     {
-        //base
-        if(root1 == null || root2 == null) return root1==root2;
+        if(left == null && right == null) return;
         
-        //logic
-        if(root1.val!=root2.val) return false;
+        if(left == null || right == null || left.val != right.val) {
+            isValid = false;
+            return;
+        }
         
-        return helper(root1.left,root2.right) && helper(root1.right,root2.left);
+        dfs(left.left,right.right);
+        dfs(left.right,right.left);
     }
 }
