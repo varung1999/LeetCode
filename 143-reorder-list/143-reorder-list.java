@@ -10,9 +10,9 @@
  */
 class Solution {
     public void reorderList(ListNode head) {
-        if(head == null || head.next == null) return;
+        if(head == null) return;
         
-        ListNode slow = head, fast = head;
+        ListNode slow = head,fast = head;
         
         while(fast.next!=null && fast.next.next!=null)
         {
@@ -20,43 +20,33 @@ class Solution {
             fast = fast.next.next;
         }
         
-        //reversing the list
-        fast = reverse(slow.next);
-        //splitting the list
-        slow.next = null;
         
-        //merging the list
+        fast = reverse(slow.next);
+        
+        slow.next = null;
         slow = head;
-        ListNode temp = null;
+        
+        ListNode temp = slow;
         
         while(fast!=null)
         {
             temp = slow.next;
-            slow.next = fast;
+            slow.next =fast;
             fast = fast.next;
             slow.next.next = temp;
             slow = temp;
         }
-        
-        
     }
+    
     
     private ListNode reverse(ListNode head)
     {
         if(head == null || head.next == null) return head;
-        ListNode curr =head;
-        ListNode prev = null;
-        ListNode fast = head.next;
         
-        while(fast!=null)
-        {
-            curr.next = prev;
-            prev = curr;
-            curr = fast;
-            fast = fast.next;
-        }
+        ListNode temp = reverse(head.next);
+        head.next.next = head;
+        head.next = null;
         
-        curr.next = prev;
-        return curr;
+        return temp;
     }
 }
