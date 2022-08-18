@@ -16,12 +16,12 @@ class Solution {
             }
         }
         
-        if(fresh ==0) return 0;
+        if(fresh == 0) return 0;
         int time = -1;
         int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};
         while(!q.isEmpty())
         {
-            time++;
+            
             int size = q.size();
             for(int i =0;i<size;i++){
                 int[] curr = q.poll();
@@ -39,6 +39,7 @@ class Solution {
                     }
                 }
             }
+            time++;
         }
         
         
