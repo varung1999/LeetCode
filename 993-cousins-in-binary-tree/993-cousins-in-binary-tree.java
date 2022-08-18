@@ -14,35 +14,34 @@
  * }
  */
 class Solution {
+    TreeNode x_parent, y_parent;
+    int x_level,y_level;
+    
     public boolean isCousins(TreeNode root, int x, int y) {
-        if(root == null) return false; 
+        if(root == null) return false;
         
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(root);
-       
-        while(!q.isEmpty())
+        dfs(root,null,x,y,0);
+        
+        
+        return x_level == y_level && x_parent!=y_parent;
+    }
+    
+    private void dfs(TreeNode root, TreeNode prev, int x, int y, int level)
+    {
+        if(root == null) return;
+        if(root.val == x)
         {
-            int size = q.size();
-            boolean x_found = false;
-            boolean y_found = false;
-            for(int i =0;i<size;i++)
-            {
-                TreeNode curr = q.poll();
-                if(curr.val == x) x_found = true;
-                if(curr.val == y) y_found = true;
-                
-                if(curr.left!=null && curr.right!=null)
-                {
-                    if(curr.left.val == x && curr.right.val == y) return false;
-                    if(curr.right.val == x && curr.left.val == y) return false;
-                }
-                if(curr.left!=null) q.add(curr.left);
-                if(curr.right!=null) q.add(curr.right);
-            }
-            
-            if(x_found && y_found) return true;
+            x_level = level;
+            x_parent = prev;
         }
         
-        return false;
+        if(root.val == y)
+        {
+            y_level = level;
+            y_parent = prev;
+        }
+        
+        dfs(root.left,root,x,y,level+1);
+        dfs(root.right,root,x,y,level+1);
     }
 }
