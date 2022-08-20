@@ -2,7 +2,9 @@ class Solution {
     public int numIslands(char[][] grid) {
         if(grid == null || grid.length == 0) return 0;
         
-        int count =0;
+        Queue<int[]> q = new LinkedList<>();
+        int total =0;
+        int[][] dirs = {{-1,0},{1,0},{0,-1},{0,1}};
         
         for(int i =0;i<grid.length;i++)
         {
@@ -10,27 +12,29 @@ class Solution {
             {
                 if(grid[i][j] == '1')
                 {
-                    dfs(grid,i,j);
-                    count++;
+                    grid[i][j] = '0';
+                    q.add(new int[]{i,j});
+                    total++;
+                    while(!q.isEmpty())
+                    {
+                        int[] curr = q.poll();
+                        
+                        for(int[] dir:dirs)
+                        {
+                            int r = dir[0] + curr[0];
+                            int c = dir[1] + curr[1];
+                            
+                            if(r>=0 && c>=0 && r<grid.length && c<grid[0].length && grid[r][c] == '1')
+                            {
+                                grid[r][c] = 0;
+                                q.add(new int[]{r,c});
+                            }
+                        }
+                    }
                 }
             }
         }
         
-        return count;
-    }
-    
-    
-    private void dfs(char[][] grid, int i,int j)
-    {
-        //base
-        if(i<0 || i==grid.length || j<0 || j==grid[0].length || grid[i][j] != '1') return;
-        
-        //logic
-        grid[i][j] = 0;
-        
-        dfs(grid,i-1,j);//up
-        dfs(grid,i+1,j);//down
-        dfs(grid,i,j-1);//left
-        dfs(grid,i,j+1);//right
+        return total;
     }
 }
