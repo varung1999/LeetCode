@@ -14,13 +14,14 @@ class Solution {
         //base
         if(index==nums.length)
         {
-            result.add(temp);
+            result.add(new ArrayList<>(temp));
             return;
         }
         
         //logic
-        dfs(nums,index+1,new ArrayList<>(temp));
+        dfs(nums,index+1,temp);
         temp.add(nums[index]);
-        dfs(nums,index+1,new ArrayList<>(temp));
+        dfs(nums,index+1,temp);
+        temp.remove(temp.size()-1);
     }
 }
