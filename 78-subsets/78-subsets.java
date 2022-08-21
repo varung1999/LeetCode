@@ -12,16 +12,14 @@ class Solution {
     private void dfs(int[] nums, int index, ArrayList<Integer> temp)
     {
         //base
-        if(index==nums.length)
-        {
-            result.add(new ArrayList<>(temp));
-            return;
-        }
         
         //logic
-        dfs(nums,index+1,temp);
-        temp.add(nums[index]);
-        dfs(nums,index+1,temp);
-        temp.remove(temp.size()-1);
+        result.add(new ArrayList<>(temp));
+        for(int i =index;i<nums.length;i++)
+        {
+            temp.add(nums[i]);
+            dfs(nums,i+1,temp);
+            temp.remove(temp.size()-1);
+        }
     }
 }
