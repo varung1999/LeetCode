@@ -14,7 +14,7 @@ class Solution {
         //base
         if(target == 0)
         {
-            result.add(temp);
+            result.add(new ArrayList<>(temp));
             return;
         }
         
@@ -24,8 +24,9 @@ class Solution {
         }
         
         //logic
-        dfs(candidates, index+1, target,new ArrayList<>(temp));
+        dfs(candidates, index+1, target,temp);
         temp.add(candidates[index]);
-        dfs(candidates,index, target - candidates[index],new ArrayList<>(temp));
+        dfs(candidates,index, target - candidates[index],temp);
+        temp.remove(temp.size()-1);
     }
 }
