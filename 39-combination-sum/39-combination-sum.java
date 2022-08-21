@@ -14,7 +14,7 @@ class Solution {
         //base
         if(target == 0){
             result.add(new ArrayList<>(temp));
-            return;
+            
         }
         if(target<0)
         {
