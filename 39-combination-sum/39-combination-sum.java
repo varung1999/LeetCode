@@ -13,7 +13,7 @@ class Solution {
     {
         //base
         if(target == 0){
-            result.add(new ArrayList<>(temp));
+            result.add(temp);
             
         }
         if(target<0)
@@ -25,7 +25,7 @@ class Solution {
         for(int i = index;i<candidates.length;i++)
         {
             temp.add(candidates[i]);
-            dfs(candidates,i,target - candidates[i],temp);
+            dfs(candidates,i,target - candidates[i],new ArrayList<>(temp));
             temp.remove(temp.size()-1);
         }
     }
