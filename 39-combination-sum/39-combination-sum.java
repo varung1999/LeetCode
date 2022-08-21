@@ -12,21 +12,21 @@ class Solution {
     private void dfs(int[] candidates, int index, int target, ArrayList<Integer> temp)
     {
         //base
-        if(target == 0)
-        {
+        if(target == 0){
             result.add(new ArrayList<>(temp));
             return;
         }
-        
-        if(index == candidates.length || target<0)
+        if(target<0)
         {
             return;
         }
         
         //logic
-        dfs(candidates, index+1, target,temp);
-        temp.add(candidates[index]);
-        dfs(candidates,index, target - candidates[index],temp);
-        temp.remove(temp.size()-1);
+        for(int i = index;i<candidates.length;i++)
+        {
+            temp.add(candidates[i]);
+            dfs(candidates,i,target - candidates[i],temp);
+            temp.remove(temp.size()-1);
+        }
     }
 }
