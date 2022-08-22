@@ -1,13 +1,5 @@
 class Solution {
     public boolean isPowerOfFour(int n) {
-        if(n>1)
-        {
-            while(n%4==0)
-            {
-                n = n/4;
-            }
-        }
-        
-        return n==1;
+        return Integer.toString(n,4).matches("10*");
     }
 }
