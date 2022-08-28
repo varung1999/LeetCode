@@ -4,12 +4,12 @@ class Solution {
     public int countMaxOrSubsets(int[] nums) {
         if(nums == null || nums.length == 0) return 0;
         
-        backtrack(nums,0,0,new ArrayList<>());
+        backtrack(nums,0,0);
         
         return count+1;
     }
     
-    private void backtrack(int[] nums, int index, int tempOr, ArrayList<Integer> path)
+    private void backtrack(int[] nums, int index, int tempOr)
     {
         //base
         if(index == nums.length)
@@ -27,9 +27,8 @@ class Solution {
         }
         
         //logic
-        backtrack(nums,index+1,tempOr,path);
-        path.add(nums[index]);
-        backtrack(nums,index+1,tempOr | nums[index],path);
-        path.remove(path.size()-1);
+        backtrack(nums,index+1,tempOr);
+        backtrack(nums,index+1,tempOr | nums[index]);
+        
     }
 }
