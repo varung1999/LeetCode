@@ -13,6 +13,7 @@ class CombinationIterator {
         if(result.length() == count)
         {
             pq.add(result.toString());
+            return;
         }
         //logic
         for(int i = index;i<s.length();i++)
