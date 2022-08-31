@@ -15,13 +15,26 @@ class CombinationIterator {
             pq.add(result.toString());
             return;
         }
-        //logic
-        for(int i = index;i<s.length();i++)
+        if(index == s.length())
         {
-            result.append(s.charAt(i));
-            backtrack(s,i+1,count,result);
-            result.deleteCharAt(result.length()-1);
+            return;
         }
+        //logic
+        // for(int i = index;i<s.length();i++)
+        // {
+        //     result.append(s.charAt(i));
+        //     backtrack(s,i+1,count,result);
+        //     result.deleteCharAt(result.length()-1);
+        // }
+        
+        //do not choose case
+        backtrack(s,index+1,count,result);
+        
+        //choose case
+        StringBuilder temp = new StringBuilder(result);
+        temp.append(s.charAt(index));
+        backtrack(s,index+1,count,temp);
+        temp.deleteCharAt(temp.length()-1);
     }
     
     public String next() {
