@@ -1,42 +1,50 @@
 class Solution {
+    HashSet<Integer> set;
     public int[] numsSameConsecDiff(int n, int k) {
-        HashSet<Integer> set = new HashSet<>();
-        Queue<Integer> q = new LinkedList<>(Arrays.asList(1,2,3,4,5,6,7,8,9));
+        set = new HashSet<>();
         
-        while(!q.isEmpty())
+        for(int i =1;i<=9;i++)
         {
-            int currNum = q.poll();
-            int lastDig = currNum%10;
-            int totalSize = String.valueOf(currNum).length();
-            
-            if(totalSize == n)
-            {
-                set.add(currNum);
-                continue;
-            }
-            
-            int plus = lastDig + k;
-            int minus = lastDig - k;
-            
-            if(plus>=0 && plus<=9){
-                q.add((currNum*10) + plus);
-            }
-            
-            if(minus>=0 && minus<=9)
-            {
-                q.add((currNum*10) + minus);
-            }
+            dfs(i,n,k);
         }
         
-        int index = 0;
-        int[] result = new int[set.size()]; 
-        
-        for(int i:set)
+        int[] result = new int[set.size()];
+        int ind = 0;
+        for(int i: set)
         {
-            result[index] = i;
-            index++;
+            result[ind] = i;
+            ind++;
         }
         
         return result;
+    }
+    
+    private void dfs(int num,int n,int k)
+    {
+        //base
+        int totalSize = String.valueOf(num).length();
+        
+        if(totalSize == n)
+        {
+            set.add(num);
+            return;
+        }
+        
+        //logic
+        
+        int lastDig = num%10;
+        
+        int plus = lastDig + k;
+        int minus = lastDig - k;
+        
+        if(plus>=0 && plus<=9) 
+        {
+            dfs((num*10) + plus,n,k);
+        }
+        
+        if(minus>=0 && minus<=9)
+        {
+            dfs((num*10) + minus, n,k);
+        }
     }
 }
