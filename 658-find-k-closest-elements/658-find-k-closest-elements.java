@@ -3,26 +3,29 @@ class Solution {
         List<Integer> result = new ArrayList<>();
         if(arr == null || arr.length == 0) return result;
         
-        int left = 0, right = arr.length - 1;
+        int low = 0, high = arr.length - k;
         
-        while(right - left+ 1 > k)
+        while(low<high)
         {
-            int leftDiff = Math.abs(arr[left] - x);
-            int rightDiff = Math.abs(arr[right] - x);
+            int mid = low + (high - low)/2;
             
-            if(leftDiff>rightDiff)
+            int left = x - arr[mid];
+            int right = arr[mid + k] - x;
+            
+            if(left>right)
             {
-                left++;
+                low = mid + 1;
             }
             else{
-                right--;
+                high = mid;
             }
         }
         
-        for(int i = left;i<left + k;i++)
+        for(int i = low;i<low + k;i++)
         {
             result.add(arr[i]);
         }
+        
         return result;
     }
 }
