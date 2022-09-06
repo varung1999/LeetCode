@@ -1,45 +1,28 @@
 class Solution {
-    
-    class Pair implements Comparable<Pair>{
-        int num, diff;
-        
-        public Pair(int num, int diff)
-        {
-            this.num = num;
-            this.diff = diff;
-        }
-        
-        public int compareTo(Pair pair)
-        {
-            int res = Integer.compare(this.diff,pair.diff);
-            if(res == 0) return Integer.compare(this.num, pair.num);
-            else return res;
-        }
-    }
     public List<Integer> findClosestElements(int[] arr, int k, int x) {
         List<Integer> result = new ArrayList<>();
         if(arr == null || arr.length == 0) return result;
         
-        Pair[] pairArray = new Pair[arr.length];
+        int left = 0, right = arr.length - 1;
         
-        for(int i =0;i<arr.length;i++)
+        while(right - left+ 1 > k)
         {
-            pairArray[i] = new Pair(arr[i], Math.abs(arr[i] - x));
-        }
-        
-        Arrays.sort(pairArray, new Comparator<Pair>(){
-            public int compare(Pair p1, Pair p2)
+            int leftDiff = Math.abs(arr[left] - x);
+            int rightDiff = Math.abs(arr[right] - x);
+            
+            if(leftDiff>rightDiff)
             {
-                return p1.compareTo(p2);
+                left++;
             }
-        });
-        
-        for(int i = 0;i<k;i++)
-        {
-            result.add(pairArray[i].num);
+            else{
+                right--;
+            }
         }
         
-        Collections.sort(result);
+        for(int i = left;i<left + k;i++)
+        {
+            result.add(arr[i]);
+        }
         return result;
     }
 }
