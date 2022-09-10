@@ -19,12 +19,19 @@ class Solution {
     private int helper(int[][] matrix, int target)
     {
         int count = 0;
-        int j = matrix.length - 1;
+        int i = matrix.length - 1;
+        int j = 0;
         
-        for(int i =0;i<matrix.length;i++)
+        while(i>=0 && j<matrix.length)
         {
-            while(j>=0 && matrix[i][j]>target) j--;
-            count+= j+1;
+            if(matrix[i][j]>target)
+            {
+                i--;
+            }
+            else{
+                count+=i+1;
+                j++;
+            }
         }
         return count;
     }
