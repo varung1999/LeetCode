@@ -20,6 +20,7 @@ class Solution {
                 sign =1;
                 
             }
+            else if(ch == ' ') continue;
             else if(ch =='('){
                 stk.push(sum);
                 stk.push(sign);
