@@ -1,42 +1,39 @@
 class Solution {
-    int index;
-    public int calculate(String s) {
-        index = 0;
-        return helper(s);
-    }
     
-    private int helper(String s)
-    {
-        int sign = 1;
-        int num = 0;
-        int res = 0;
-        while(index<s.length())
-        {
-            char curr = s.charAt(index++);
-            if(curr == ' ') continue;
-            else if(Character.isDigit(curr))
-            {
-                num = num * 10 + (curr-'0');
-            }
-            else if(curr == '(') num = helper(s);
-            else if(curr == ')') {
-                res = res + (num*sign);
-                return res;
-            }
-            else{
-                res += sign * num;
-                if(curr == '-')
-                {
-                    sign = -1;
-                }
-                else{
-                    sign = 1;
-                }
-                num = 0;
-            }
+    public int calculate(String s) {
+        int sign =1;
+        int sum =0;
+        Stack<Integer> stk = new Stack<>();
+        
+        for(int i=0; i<s.length(); i++){
             
+            char ch = s.charAt(i);
+            if(Character.isDigit(ch)){
+                
+                int val=0;
+                while(i<s.length() && Character.isDigit(s.charAt(i))){
+                    val = val*10 + (s.charAt(i)-'0');
+                    i++;
+                }
+                i--;
+                sum = sum+val*sign;
+                sign =1;
+                
+            }
+            else if(ch =='('){
+                stk.push(sum);
+                stk.push(sign);
+                sign=1;
+                sum=0;
+            }
+            else if(ch ==')'){
+                sum = sum*stk.pop();
+                sum +=stk.pop();
+            }
+            else if(ch =='-'){
+                sign = sign*-1;
+            }
         }
-        int temp = res + (sign * num);
-        return temp;
+        return sum;
     }
 }
