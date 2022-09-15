@@ -14,38 +14,32 @@
  * }
  */
 class Solution {
-    ArrayList<Integer> inorder;
-    int index;
+    TreeNode first;
+    TreeNode second;
+    TreeNode prev;
     public void recoverTree(TreeNode root) {
         if(root == null) return;
-        inorder = new ArrayList<>();
-        
         dfs(root);
-        
-        index = 0;
-        Collections.sort(inorder);
-        construct(root);
+        int temp = first.val;
+        first.val = second.val;
+        second.val = temp;
     }
     
     private void dfs(TreeNode root)
     {
         //base
         if(root == null) return;
-        
         //logic
         dfs(root.left);
-        inorder.add(root.val);
+        if(prev!=null && prev.val>=root.val)
+        {
+            if(first == null)
+            {
+                first = prev;
+            }
+            second = root;
+        }
+        prev = root;
         dfs(root.right);
-    }
-    
-    private void construct(TreeNode root)
-    {
-        //base
-        if(root == null) return;
-        
-        //logic
-        construct(root.left);
-        root.val = inorder.get(index++);
-        construct(root.right);
     }
 }
