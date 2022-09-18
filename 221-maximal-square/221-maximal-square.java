@@ -4,18 +4,24 @@ class Solution {
         
         int m = matrix.length;
         int n = matrix[0].length;
-        int[][] dp = new int[m+1][n+1];
+        int[] dp = new int[n+1];
         int max = 0;
-        
+        int prev=0,temp=0;
         for(int i=1;i<=m;i++)
         {
             for(int j = 1;j<=n;j++)
             {
+                prev = dp[j];
                 if(matrix[i-1][j-1]=='1')
                 {
-                    dp[i][j] = 1 + Math.min(dp[i-1][j],Math.min(dp[i][j-1],dp[i-1][j-1]));
-                    max = Math.max(max,dp[i][j]);
+                    dp[j] = 1 + Math.min(dp[j-1], Math.min(dp[j],temp));
+                    
                 }
+                else{
+                    dp[j]=0;
+                }
+                max = Math.max(max,dp[j]);
+                temp = prev;
             }
         }
         return max*max;
