@@ -29,13 +29,14 @@ class Solution {
         
         //logic
         path.append(root.val);
-        if(root.left == null && root.right == null)
-        {
-            sum+= Integer.parseInt(path.toString(),2);
-        }
+       
 
         dfs(root.left,path);
         dfs(root.right,path);
+         if(root.left == null && root.right == null)
+        {
+            sum+= Integer.parseInt(path.toString(),2);
+        }
         path.deleteCharAt(path.length()-1);
     }
 }
