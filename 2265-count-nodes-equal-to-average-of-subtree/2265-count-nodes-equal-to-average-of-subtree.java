@@ -14,44 +14,37 @@
  * }
  */
 class Solution {
+    
+    class NodeInfo{
+        int sum,size;
+        
+        public NodeInfo(int sum,int size)
+        {
+            this.sum = sum;
+            this.size = size;
+        }
+    }
     int count = 0;
     public int averageOfSubtree(TreeNode root) {
         if(root == null) return 0;
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(root);
-        
-        while(!q.isEmpty())
-        {
-            TreeNode curr = q.poll();
-            int height = getHeight(curr);
-            int sum = getSum(curr);
-            // System.out.println(curr.val +" "+height+" "+sum);
-            if(curr.val == (sum/height)) count++;
-            if(curr.left!=null) q.add(curr.left);
-            if(curr.right!=null) q.add(curr.right);
-        }
-        
+        dfs(root);
         return count;
     }
     
-    private int getHeight(TreeNode curr)
+    private NodeInfo dfs(TreeNode root)
     {
         //base
-        if(curr == null) return 0;
+        if(root == null) return new NodeInfo(0,0);
         
         //logic
-        return 1 + getHeight(curr.left) + getHeight(curr.right);
-    }
-    
-    private int getSum(TreeNode root)
-    {
-        //base
-        if(root == null) return 0;
+        NodeInfo left = dfs(root.left);
+        NodeInfo right = dfs(root.right);
         
-        //logic
-        int left = getSum(root.left);
-        int right =getSum(root.right);
+        int currVal = root.val + left.sum + right.sum;
+        int currSize = 1 + left.size + right.size;
         
-        return root.val + left + right;
+        if(currVal/currSize == root.val) count++;
+        
+        return new NodeInfo(currVal,currSize);
     }
 }
