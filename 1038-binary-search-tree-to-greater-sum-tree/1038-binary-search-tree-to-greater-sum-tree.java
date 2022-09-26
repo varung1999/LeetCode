@@ -25,8 +25,7 @@ class Solution {
         if(root == null) return;
         
         dfs(root.right);
-        int temp = root.val;
-        sum+=temp;
+        sum+=root.val;
         root.val = sum;
         dfs(root.left);
         
