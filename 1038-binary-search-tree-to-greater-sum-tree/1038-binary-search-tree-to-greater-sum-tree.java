@@ -14,20 +14,21 @@
  * }
  */
 class Solution {
+    int sum = 0;
     public TreeNode bstToGst(TreeNode root) {
-        helper(root,0);
+        dfs(root);
         return root;
     }
     
-    private int helper(TreeNode root, int sum)
+    private void dfs(TreeNode root)
     {
-        //base
-        if(root == null) return 0;
+        if(root == null) return;
         
-        //logic
-        int temp = root.val + helper(root.right,sum);
-        root.val = sum + temp;
-        temp += helper(root.left,root.val);
-        return temp;
+        dfs(root.right);
+        int temp = root.val;
+        sum+=temp;
+        root.val = sum;
+        dfs(root.left);
+        
     }
 }
