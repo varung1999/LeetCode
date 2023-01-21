@@ -14,34 +14,55 @@
  * }
  */
 class Solution {
+    int max = Integer.MIN_VALUE;
+    int count = 1;
+    List<Integer> list;
+    TreeNode prev = null;
     public int[] findMode(TreeNode root) {
         if(root == null) return new int[]{};
-        HashMap<Integer,Integer> map = new HashMap<>();
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(root);
-        while(!q.isEmpty())
-        {
-            TreeNode curr = q.poll();
-            map.put(curr.val,map.getOrDefault(curr.val,0)+1);
-            if(curr.left!=null) q.add(curr.left);
-            if(curr.right!=null) q.add(curr.right);
-        }
+        list = new ArrayList<>();
+        inorder(root);
         
-        int max = Integer.MIN_VALUE;
-        List<Integer> res = new ArrayList<>();
-        for(int val : map.values()) max = Math.max(max,val);
-        
-        for(int key : map.keySet())
+        int[] result = new int[list.size()];
+        for(int i=0;i<result.length;i++)
         {
-            if(map.get(key) == max) res.add(key);
-        }
-        
-        int[] result = new int[res.size()];
-        for(int i =0;i<res.size();i++)
-        {
-            result[i] = res.get(i);
+            result[i]=list.get(i);
         }
         
         return result;
+    }
+    
+    private void inorder(TreeNode root)
+    {
+        //base
+        if(root == null) return;
+        
+        //logic
+        inorder(root.left);
+        if(prev!=null)
+        {
+            if(prev.val == root.val)
+            {
+                count++;
+            }
+            else{
+                count = 1;
+            }
+        }
+        
+        if(count>max)
+        {
+            max = count;
+            list.clear();
+            list.add(root.val);
+        }
+        else if(count == max)
+        {
+            list.add(root.val);
+        }
+        
+        prev = root;
+        
+        inorder(root.right);
     }
 }
