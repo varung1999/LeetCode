@@ -25,8 +25,9 @@ class Solution {
             order.add(nums[index]);   
             backtrack(nums,index+1,order,result);
             order.remove(order.size()-1);
+            
         }
-        
         backtrack(nums,index+1,order,result);
+        
     }
 }
