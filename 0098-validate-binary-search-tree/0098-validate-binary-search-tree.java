@@ -16,21 +16,23 @@
 class Solution {
     public boolean isValidBST(TreeNode root) {
         if(root == null) return true;
-        return helper(root,null,null);
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode prev = null;
         
-    }
-    
-    private boolean helper(TreeNode root, Integer low, Integer high)
-    {
-        //base
-        if(root == null) return true;
-        
-        //logic
-        if((low!=null && root.val<=low) || (high!=null && root.val>=high))
+        while(root!=null || !stack.isEmpty())
         {
-            return false;
+            while(root!=null)
+            {
+                stack.push(root);
+                root = root.left;
+            }
+            
+            root = stack.pop();
+            if(prev!=null && root.val<=prev.val) return false;
+            prev = root;
+            root = root.right;
         }
         
-        return helper(root.right,root.val,high) && helper(root.left,low,root.val);
+        return true;
     }
 }
