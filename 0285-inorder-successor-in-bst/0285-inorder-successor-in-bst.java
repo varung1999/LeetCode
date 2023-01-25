@@ -8,21 +8,41 @@
  * }
  */
 class Solution {
+    TreeNode prev;
+    TreeNode ans;
     public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
-        TreeNode successor = null;
-        
-        while(root!=null)
+        if(p.right!=null)
         {
-            if(p.val>=root.val)
+            TreeNode leftMost = p.right;
+            
+            while(leftMost.left!=null)
             {
-                root=root.right;
+                leftMost = leftMost.left;
             }
-            else{
-                successor = root;
-                root = root.left;
-            }
+            
+            ans = leftMost;
+        }
+        else{
+            helper(root,p);
         }
         
-        return successor;
+        return ans;
+    }
+    
+    private void helper(TreeNode root, TreeNode p)
+    {
+        if(root == null) return;
+        
+        helper(root.left,p);
+        
+        if(prev == p && ans == null)
+        {
+            ans = root;
+            return;
+        }
+        
+        prev = root;
+        
+        helper(root.right,p);
     }
 }
