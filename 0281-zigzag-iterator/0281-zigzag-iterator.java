@@ -1,35 +1,21 @@
 public class ZigzagIterator {
 
-    List<Integer> list;
-    int curr = 0;
+    Queue<Iterator> q;
     public ZigzagIterator(List<Integer> v1, List<Integer> v2) {
-        list = new ArrayList<>();
-        int idx1 = 0, idx2 = 0, n = v1.size(), m = v2.size();
-        
-        while(idx1<n && idx2<m)
-        {
-            list.add(v1.get(idx1++));
-            list.add(v2.get(idx2++));
-        }
-        
-        while(idx1<n)
-        {
-            list.add(v1.get(idx1++));
-        }
-        
-        while(idx2<m)
-        {
-            list.add(v2.get(idx2++));
-        }
+        q = new LinkedList<>();
+        if(!v1.isEmpty()) q.add(v1.iterator());
+        if(!v2.isEmpty()) q.add(v2.iterator());
     }
 
     public int next() {
-        int x = list.get(curr++);
-        return x;
+        Iterator curr = q.poll();
+        int res = (int) curr.next();
+        if(curr.hasNext()) q.add(curr);
+        return res;
     }
 
     public boolean hasNext() {
-        return curr<list.size();
+        return q.size()>0;
     }
 }
 
