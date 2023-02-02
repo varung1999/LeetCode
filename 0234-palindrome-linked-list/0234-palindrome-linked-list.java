@@ -24,6 +24,8 @@ class Solution {
         slow.next = null;
         slow = head;
         
+        ListNode ftemp = fast;
+        
         while(fast!=null)
         {
             if(fast.val!=slow.val) return false;
@@ -38,9 +40,17 @@ class Solution {
     {
         if(head == null || head.next == null) return head;
         
-        ListNode curr = reverse(head.next);
-        head.next.next = head;
-        head.next = null;
+        ListNode prev = null, curr = head, fast = head.next;
+        
+        while(fast!=null)
+        {
+            curr.next = prev;
+            prev = curr;
+            curr = fast;
+            fast = fast.next;
+        }
+        
+        curr.next = prev;
         
         return curr;
         
