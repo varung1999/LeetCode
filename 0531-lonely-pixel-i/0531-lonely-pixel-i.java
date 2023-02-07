@@ -1,31 +1,39 @@
 class Solution {
     public int findLonelyPixel(char[][] picture) {
-        if(picture == null || picture.length == 0) return 0;
+        int n = picture.length;
+        int m = picture[0].length;
         
-        int[] row = new int[picture.length];
-        int[] col = new int[picture[0].length];
-        
-        for(int i = 0;i<picture.length;i++)
+        int ans = 0;
+        for(int i = 0;i<n;i++)
         {
-            for(int j = 0;j<picture[0].length;j++)
+            for(int j = 0;j<m;j++)
             {
                 if(picture[i][j] == 'B'){
-                    row[i]++;
-                    col[j]++;
+                    if(checkRow(picture,i,j) && checkCol(picture,i,j)) ans++; 
                 }
             }
         }
         
-        int res = 0;
-        for(int i =0;i<row.length;i++)
+        return ans;
+    }
+    
+    private boolean checkRow(char[][] pic, int r,int c)
+    {
+        for(int i = 0;i<pic[0].length;i++)
         {
-            for(int j =0;j<col.length;j++)
-            {
-                if(picture[i][j]=='B' && row[i]==1 && col[j]==1) res++;
-            }
+            if(i == c) continue;
+            if(pic[r][i] == pic[r][c]) return false;
         }
-        
-        return res;
-
+        return true;
+    }
+    
+    private boolean checkCol(char[][] pic,int r,int c)
+    {
+        for(int j = 0;j<pic.length;j++)
+        {
+            if(j==r) continue;
+            if(pic[j][c] == pic[r][c]) return false;
+        }
+        return true;
     }
 }
