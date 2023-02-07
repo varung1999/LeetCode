@@ -7,17 +7,15 @@ class Solution {
         {
             for(int j = 0;j<grid[0].length;j++)
             {
-                if(grid[i][j] == '#')
+                if(grid[i][j] == '*')
                 {
                     q.add(new int[]{i,j});
                 }
             }
         }
         
-        //if(q.size() == 0) return 0;
-        
-        int level = 0;
-        int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};
+        int step = 0;
+        int[][] dirs = {{-1,0},{1,0},{0,-1},{0,1}};
         
         while(!q.isEmpty())
         {
@@ -25,7 +23,10 @@ class Solution {
             for(int i = 0;i<size;i++)
             {
                 int[] curr = q.poll();
-                if(grid[curr[0]][curr[1]]=='*') return level;
+                
+                if(grid[curr[0]][curr[1]]=='#') return step;
+                //if(grid[curr[0]][curr[1]]=='X') continue;
+                
                 for(int[] dir: dirs)
                 {
                     int nr = dir[0] + curr[0];
@@ -33,17 +34,18 @@ class Solution {
                     
                     if(nr>=0 && nr<grid.length && nc>=0 && nc<grid[0].length && grid[nr][nc]=='O')
                     {
-                        grid[nr][nc] = 'X';
+                        grid[nr][nc]='X';
                         q.add(new int[]{nr,nc});
                     }
-                    else if(nr>=0 && nr<grid.length && nc>=0 && nc<grid[0].length && grid[nr][nc]=='*')
+                    else if(nr>=0 && nr<grid.length && nc>=0 && nc<grid[0].length && grid[nr][nc]=='#')
                     {
-                        return level+1;
+                        return step+1;
                     }
                 }
             }
-            level++;
+            step++;
         }
+        
         return -1;
     }
 }
