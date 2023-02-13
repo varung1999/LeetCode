@@ -17,13 +17,14 @@ class Solution {
             result.add(new ArrayList<>(path));
             return;
         }
-        
-        if(index == candidates.length || target<0) return;
+        if(target<0) return;
         
         //logic
-        dfs(candidates,target,index+1,path);
-        path.add(candidates[index]);
-        dfs(candidates,target - candidates[index],index,path);
-        path.remove(path.size()-1);
+        for(int i = index;i<candidates.length;i++)
+        {
+            path.add(candidates[i]);
+            dfs(candidates,target - candidates[i],i,path);
+            path.remove(path.size()-1);
+        }
     }
 }
