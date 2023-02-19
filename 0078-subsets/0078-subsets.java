@@ -13,15 +13,15 @@ class Solution {
     private void dfs(int[] nums, int index, ArrayList<Integer> path)
     {
         //base
-        if(index==nums.length){
-            result.add(new ArrayList<>(path));
-            return;
-        }
         
         //logic
-        dfs(nums,index+1,path);
-        path.add(nums[index]);
-        dfs(nums,index+1,path);
-        path.remove(path.size()-1);
+        result.add(new ArrayList<>(path));
+        for(int i = index;i<nums.length;i++)
+        {
+            //dfs(nums,i+1,path);
+            path.add(nums[i]);
+            dfs(nums,i+1,path);
+            path.remove(path.size()-1);
+        }
     }
 }
