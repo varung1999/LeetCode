@@ -14,35 +14,37 @@
  * }
  */
 class Solution {
+    List<List<Integer>> result;
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        List<List<Integer>> result = new ArrayList<>();
-        if(root == null) return result;
+        result = new ArrayList<>();
+        if(root == null) return result; 
         
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(root);
-        int level = 0;
-        while(!q.isEmpty())
+        dfs(root,0,new ArrayList<>());
+        
+        return result;
+    }
+    
+    private void dfs(TreeNode root, int level, ArrayList<Integer> path)
+    {
+        //base
+        if(root == null) return;
+        if(level==result.size())
         {
-            int size = q.size();
-            List<Integer> temp = new ArrayList<>();
-            
-            for(int i = 0;i<size;i++)
-            {
-                TreeNode curr = q.poll();
-                
-                temp.add(curr.val);
-                if(curr.left!=null) q.add(curr.left);
-                if(curr.right!=null) q.add(curr.right);
-            }
-            
-            if(level%2!=0)
-            {
-                Collections.reverse(temp);
-            }
-            level++;
+            ArrayList<Integer> temp = new ArrayList<>();
             result.add(temp);
         }
         
-        return result;
+        
+        //logic
+        if(level%2!=0)
+        {
+            result.get(level).add(0,root.val);
+        }
+        else{
+            result.get(level).add(root.val);
+        }
+        
+        dfs(root.left,level+1,path);
+        dfs(root.right,level+1,path);
     }
 }
