@@ -1,18 +1,26 @@
-class WordDictionary {
-
-    WordDictionary[] children;
+class TrieNode{
+    TrieNode[] children;
     boolean isEnd;
+    
+    public TrieNode(){
+        children = new TrieNode[26];
+    }
+}
+
+class WordDictionary {
+    
+    TrieNode root;
+    
     public WordDictionary() {
-        children = new WordDictionary[26];
+        root = new TrieNode();
     }
     
-    
     public void addWord(String word) {
-        WordDictionary curr = this;
-        for(int i = 0;i<word.length();i++)
+        TrieNode curr = root;
+        for(int i =0;i<word.length();i++)
         {
             char c = word.charAt(i);
-            if(curr.children[c-'a']==null) curr.children[c-'a'] = new WordDictionary();
+            if(curr.children[c-'a'] == null) curr.children[c-'a'] = new TrieNode();
             curr = curr.children[c-'a'];
         }
         
@@ -20,23 +28,30 @@ class WordDictionary {
     }
     
     public boolean search(String word) {
-        WordDictionary curr = this;
+        TrieNode curr = root;
+        return searchInNode(word,curr);
+    }
+    
+    private boolean searchInNode(String word, TrieNode node)
+    {
         for(int i = 0;i<word.length();i++)
         {
-            char c = word.charAt(i);
-            if(c=='.')
+            char curr = word.charAt(i);
+            
+            if(curr=='.')
             {
-                for(WordDictionary child: curr.children)
+                for(TrieNode child : node.children)
                 {
-                    if(child!=null && child.search(word.substring(i+1))) return true;
+                    if(child!=null && searchInNode(word.substring(i+1),child)) return true;
                 }
                 return false;
             }
-            if(curr.children[c-'a']==null) return false;
-            curr = curr.children[c-'a'];
+            
+            if(node.children[curr-'a']==null) return false;
+            node = node.children[curr-'a'];
         }
         
-        return curr!=null && curr.isEnd;
+        return node!=null && node.isEnd;
     }
 }
 
