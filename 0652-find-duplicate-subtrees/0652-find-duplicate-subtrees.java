@@ -14,36 +14,28 @@
  * }
  */
 class Solution {
+    List<TreeNode> res;
+    HashMap<String,Integer> count;
     public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
-        List<TreeNode> res = new ArrayList<>();
-        HashMap<String,Integer> map = new HashMap<>();
+        res = new ArrayList<>();
+        count = new HashMap<>();
         
-        helper(root,map,res);
+        helper(root);
         return res;
     }
     
-    private String helper(TreeNode root, HashMap<String,Integer> map, List<TreeNode> res)
-    {
+    private String helper(TreeNode root){
         //base
-        if(root == null) return "#";
+        if(root == null) return "";
         
         //logic
-        String sb = new StringBuilder()
-            .append("l")
-            .append(helper(root.left,map,res))
-            .append(root.val)
-            .append("r")
-            .append(helper(root.right,map,res))
-            .toString();
+        String rep = "(" + helper(root.left) +")" + root.val +"(" + helper(root.right) +")";
+        count.put(rep,count.getOrDefault(rep,0)+1);
         
-        int val = map.getOrDefault(sb,0);
-        
-        if(val == 1)
-        {
+        if(count.get(rep)==2){
             res.add(root);
         }
         
-        map.put(sb,val+1);
-        return sb.toString();
+        return rep;
     }
 }
