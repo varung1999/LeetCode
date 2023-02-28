@@ -33,7 +33,7 @@ class Solution {
         if(root.left == null && root.right == null) return;
         
         sb.append("(");
-        helper(root.left);
+        if(root.left!=null) helper(root.left);
         sb.append(")");
         if(root.right!=null){
             sb.append("(");
