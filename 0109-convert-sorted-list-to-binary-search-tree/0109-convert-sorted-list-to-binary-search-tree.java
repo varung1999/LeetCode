@@ -24,35 +24,38 @@
  * }
  */
 class Solution {
+    ArrayList<Integer> values;
     public TreeNode sortedListToBST(ListNode head) {
-        if(head == null) return null;
+        values = new ArrayList<>();
         
-        ListNode mid = middle(head);
+        convert(head);
         
-        TreeNode node = new TreeNode(mid.val);
-        
-        if(head == mid) return node;
-        
-        node.left = sortedListToBST(head);
-        node.right = sortedListToBST(mid.next);
-        
-        return node;
+       return formTree(0,values.size()-1);
     }
     
-    private ListNode middle(ListNode head)
+    private void convert(ListNode head)
     {
-        if(head == null || head.next == null) return head;
+        if(head == null) return;
         
-        ListNode slow = head , fast = head;
-        ListNode prev = null;
-        while(fast!=null && fast.next!=null)
+        while(head!=null)
         {
-            prev = slow;
-            slow = slow.next;
-            fast = fast.next.next;
+            values.add(head.val);
+            head = head.next;
         }
+    }
+    
+    private TreeNode formTree(int left, int right)
+    {
+        if(left>right) return null;
         
-        if(prev!=null) prev.next = null;
-        return slow;
+        int mid = (left+right)/2;
+        TreeNode node = new TreeNode(values.get(mid));
+        
+        if(left == right) return node;
+        
+        node.left = formTree(left, mid - 1);
+        node.right = formTree(mid+1,right);
+        
+        return node;
     }
 }
