@@ -10,15 +10,15 @@ class Logger {
         {
             int nextTime = map.get(message);
             
-            if(timestamp>=nextTime+10)
+            if(timestamp>=nextTime)
             {
-                map.put(message,timestamp);
+                map.put(message,timestamp+10);
                 return true;
             }
             else return false;
         }
         else{
-            map.put(message,timestamp);
+            map.put(message,timestamp+10);
             return true;
         }
     }
