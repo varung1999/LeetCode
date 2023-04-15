@@ -37,6 +37,8 @@ class Solution {
             return root;
         }
         
-        return left == null ? right : right == null ? left : root;
+        if(left == null) return right;
+        else if(right == null) return left;
+        else return root;
     }
 }
