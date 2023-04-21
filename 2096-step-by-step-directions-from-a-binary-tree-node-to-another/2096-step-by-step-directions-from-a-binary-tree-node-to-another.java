@@ -21,13 +21,15 @@ class Solution {
         helper(root,startValue,s);
         helper(root,destValue,d);
         
-        int i = 0, max = Math.min(s.length(),d.length());
+        s.reverse();
+        d.reverse();
         
-        while(i<max && s.charAt(s.length()-i-1) == d.charAt(d.length() - i - 1)){
-            ++i;
+        while(s.length()>0 && d.length()>0 && s.charAt(0) == d.charAt(0)){
+            s.deleteCharAt(0);
+            d.deleteCharAt(0);
         }
         
-        return "U".repeat(s.length() - i) + d.reverse().toString().substring(i);
+        return "U".repeat(s.length()) + d.toString();
         
     }
     
