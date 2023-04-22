@@ -12,33 +12,15 @@ class Solution {
                 list.add(num);
             }
             else{
-                int x = binarySearch(list,num);
-                list.set(x,num);
+                int j = 0;
+                while(num>list.get(j))
+                {
+                    j++;
+                }
+                list.set(j,num);
             }
         }
         
         return list.size();
-    }
-    
-    private int binarySearch(ArrayList<Integer> list, int target)
-    {
-        int low = 0, high = list.size()-1;
-        
-        while(low<high)
-        {
-            int mid = low + (high - low)/2;
-            
-            if(list.get(mid) == target) return mid;
-            
-            else if(list.get(mid)<target)
-            {
-                low = mid + 1;
-            }
-            else {
-                high = mid;
-            }
-        }
-        
-        return low;
     }
 }
