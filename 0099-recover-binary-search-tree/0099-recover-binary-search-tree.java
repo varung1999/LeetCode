@@ -14,17 +14,16 @@
  * }
  */
 class Solution {
-    ArrayList<Integer> list;
-    int i = 0;
+    TreeNode first;
+    TreeNode second;
+    TreeNode prev;
     public void recoverTree(TreeNode root) {
         if(root == null) return;
-        
-        list = new ArrayList<>();
         dfs(root);
         
-        Collections.sort(list);
-        
-        helper(root);
+        int temp = first.val;
+        first.val = second.val;
+        second.val = temp;
     }
     
     private void dfs(TreeNode root)
@@ -32,20 +31,13 @@ class Solution {
         //base
         if(root == null) return;
         
-        //logic
         dfs(root.left);
-        list.add(root.val);
+        if(prev!=null && prev.val>=root.val)
+        {
+            if(first==null) first = prev;
+            second = root;
+        }
+        prev = root;
         dfs(root.right);
-    }
-    
-    private void helper(TreeNode root)
-    {
-        //base
-        if(root == null) return;
-        //logic
-        helper(root.left);
-        root.val = list.get(i);
-        i++;
-        helper(root.right);
     }
 }
