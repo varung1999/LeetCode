@@ -1,22 +1,44 @@
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        int[] dp = new int[nums.length + 1];
-        
-        Arrays.fill(dp,1);
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(nums[0]);
         
         for(int i = 1;i<nums.length;i++)
         {
-            for(int j = 0;j<i;j++)
+            int num = nums[i];
+            
+            if(num>list.get(list.size()-1))
             {
-                if(nums[i]>nums[j])
-                {
-                    dp[i] = Math.max(dp[i],dp[j] + 1);
-                }
+                list.add(num);
+            }
+            else{
+                int x = binarySearch(list,num);
+                list.set(x,num);
             }
         }
         
-        int longest = 0;
-        for(int x:dp) longest = Math.max(longest,x);
-        return longest;
+        return list.size();
+    }
+    
+    private int binarySearch(ArrayList<Integer> list, int target)
+    {
+        int low = 0, high = list.size()-1;
+        
+        while(low<high)
+        {
+            int mid = low + (high - low)/2;
+            
+            if(list.get(mid) == target) return mid;
+            
+            else if(list.get(mid)<target)
+            {
+                low = mid + 1;
+            }
+            else {
+                high = mid;
+            }
+        }
+        
+        return low;
     }
 }
