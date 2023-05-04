@@ -1,28 +1,24 @@
 class Solution {
-    
-    HashMap<Integer,Integer> map = new HashMap<>();
-    
     public int numDecodings(String s) {
-        return helper(0,s);    
-    }
-    
-    private int helper(int idx, String str)
-    {
-        //base
-        if(map.containsKey(idx)) return map.get(idx);
+        int[] dp = new int[s.length()+1];
+        dp[0] = 1;
         
-        if(idx == str.length()) return 1;
+        dp[1] = s.charAt(0) == '0' ? 0:1;
         
-        //logic
-        if(str.charAt(idx)=='0') return 0;
+        for(int i = 2;i<dp.length;i++)
+        {
+            if(s.charAt(i-1)!='0')
+            {
+                dp[i] = dp[i-1];
+            }
+            
+            int twoDigit = Integer.valueOf(s.substring(i-2,i));
+            if(twoDigit>=10 && twoDigit<=26)
+            {
+                dp[i]+=dp[i-2];
+            }
+        }
         
-        if(idx == str.length()-1) return 1;
-        
-        int ans = helper(idx+1,str);
-        if(Integer.parseInt(str.substring(idx,idx+2))<=26) ans+=helper(idx+2,str);
-        
-        map.put(idx,ans);
-        
-        return ans;
+        return dp[s.length()];
     }
 }
