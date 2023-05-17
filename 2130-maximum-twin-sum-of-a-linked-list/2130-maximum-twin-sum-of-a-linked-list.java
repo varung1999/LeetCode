@@ -12,21 +12,38 @@ class Solution {
     public int pairSum(ListNode head) {
         if(head == null) return 0;
         
-        ArrayList<Integer> list = new ArrayList<>();
+        ListNode slow = head, fast = head;
         
-        while(head!=null)
+        while(fast!=null && fast.next!=null)
         {
-            list.add(head.val);
-            head = head.next;
+            slow = slow.next;
+            fast = fast.next.next;
         }
         
-        int i = 0, j = list.size()-1;
+        ListNode reverse = helper(slow);
+        
+        slow.next = null;
+        slow = head;
         int sum = 0;
-        while(i<j)
+        while(slow!=null && reverse!=null)
         {
-            sum = Math.max(sum,list.get(i++)+list.get(j--));
+            sum = Math.max(sum, slow.val + reverse.val);
+            slow = slow.next;
+            reverse = reverse.next;
         }
         
         return sum;
+    }
+    
+    private ListNode helper(ListNode head)
+    {
+        if(head == null || head.next == null) return head;
+        
+        ListNode temp = helper(head.next);
+        
+        head.next.next = head;
+        head.next = null;
+        
+        return temp;
     }
 }
