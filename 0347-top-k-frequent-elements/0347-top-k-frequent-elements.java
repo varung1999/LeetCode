@@ -17,7 +17,6 @@ class Solution {
             pq.add(i);
             if(pq.size()>k) pq.poll();
         }
-        
         int[] res = new int[pq.size()];
         for(int i=res.length - 1;i>=0;i--)
         {
