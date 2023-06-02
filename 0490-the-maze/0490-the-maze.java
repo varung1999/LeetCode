@@ -1,37 +1,38 @@
 class Solution {
+    int[][] dirs;
     public boolean hasPath(int[][] maze, int[] start, int[] destination) {
         if(maze == null || maze.length == 0) return false;
         
-        Queue<int[]> q = new LinkedList<>();
-        q.add(new int[]{start[0],start[1]});
+        dirs = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
         
+        return dfs(maze,start,destination);
+    }
+    
+    private boolean dfs(int[][] maze, int[] start, int[] destination)
+    {
+        //base
+        if(start[0] == destination[0] && start[1] == destination[1]) return true;
+        
+        //logic
         maze[start[0]][start[1]] = 2;
         
-        int[][] dirs = {{0,1},{1,0},{0,-1},{-1,0}};
-        
-        while(!q.isEmpty())
+        for(int[] dir: dirs)
         {
-            int[] curr = q.poll();
+            int r = start[0];
+            int c = start[1];
             
-            for(int[] dir: dirs)
+            while(r>=0 && r<maze.length && c>=0 && c<maze[0].length && maze[r][c]!=1)
             {
-                int r = curr[0];
-                int c = curr[1];
-                while(r>=0 && r<maze.length && c>=0 && c<maze[0].length && maze[r][c]!=1)
-                {
-                    r = r + dir[0];
-                    c = c + dir[1];
-                }
-                
-                r = r - dir[0];
-                c = c - dir[1];
-                
-                if(maze[r][c]!=2)
-                {
-                    if(r == destination[0] && c == destination[1]) return true;
-                    maze[r][c] = 2;
-                    q.add(new int[]{r,c});
-                }
+                r = r + dir[0];
+                c = c + dir[1];
+            }
+            
+            r = r - dir[0];
+            c = c - dir[1];
+            
+            if(maze[r][c]!=2 && dfs(maze,new int[]{r,c},destination))
+            {
+                return true;
             }
         }
         
