@@ -25,7 +25,6 @@ class Solution {
         while(!q.isEmpty())
         {
             step++;
-            Queue<Integer> nextQueue = new LinkedList<>();
             int size = q.size();
             
             for(int i = 0;i<size;i++){
@@ -40,19 +39,6 @@ class Solution {
                     if(inCount[endNode]==0) q.add(endNode);
                 }
             }
-//             for(int node:q)
-//             {
-//                 studiedCount++;
-                
-//                 for(int endNode: graph.get(node))
-//                 {
-//                     inCount[endNode]--;
-                    
-//                     if(inCount[endNode]==0) nextQueue.add(endNode);
-//                 }
-//             }
-            
-            // q = nextQueue;
         }
         
         return studiedCount == n ? step: -1;
