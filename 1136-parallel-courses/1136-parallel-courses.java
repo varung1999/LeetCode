@@ -12,7 +12,7 @@ class Solution {
             graph.get(relation[0]).add(relation[1]);
             inCount[relation[1]]++;
         }
-        
+        System.out.println(graph);
         int step = 0;
         int studiedCount = 0;
         
@@ -26,20 +26,33 @@ class Solution {
         {
             step++;
             Queue<Integer> nextQueue = new LinkedList<>();
+            int size = q.size();
             
-            for(int node:q)
-            {
+            for(int i = 0;i<size;i++){
+                int curr = q.poll();
+
                 studiedCount++;
-                
-                for(int endNode: graph.get(node))
+
+                for(int endNode:graph.get(curr))
                 {
                     inCount[endNode]--;
-                    
-                    if(inCount[endNode]==0) nextQueue.add(endNode);
+
+                    if(inCount[endNode]==0) q.add(endNode);
                 }
             }
+//             for(int node:q)
+//             {
+//                 studiedCount++;
+                
+//                 for(int endNode: graph.get(node))
+//                 {
+//                     inCount[endNode]--;
+                    
+//                     if(inCount[endNode]==0) nextQueue.add(endNode);
+//                 }
+//             }
             
-            q = nextQueue;
+            // q = nextQueue;
         }
         
         return studiedCount == n ? step: -1;
