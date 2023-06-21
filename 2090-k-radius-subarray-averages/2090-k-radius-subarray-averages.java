@@ -9,19 +9,22 @@ class Solution {
         
         if(2*k+1>n) return avg;
         
-        long windowSum = 0;
+       
+        long[] prefixSum = new long[n+1];
         
-        for(int i = 0;i<(2*k+1);i++)
+        for(int i = 0;i<n;i++)
         {
-            windowSum+=nums[i];
+            prefixSum[i+1] = prefixSum[i] + nums[i];
         }
         
-        avg[k] = (int)(windowSum/(2*k+1));
-        
-        for(int i = (2*k+1);i<n;i++)
+        //for(int i:prefixSum) System.out.print(i+" ");
+        for(int i = k;i<n-k;i++)
         {
-            windowSum = windowSum - nums[i - (2*k+1)] + nums[i];
-            avg[i-k] = (int) (windowSum/(2*k+1));
+            int leftBound = i-k;
+            int rightBound = i+k;
+            
+            long sum = prefixSum[rightBound+1] - prefixSum[leftBound];
+            avg[i] = (int)(sum/(2*k+1));
         }
         
         return avg;
