@@ -14,33 +14,26 @@
  * }
  */
 class Solution {
-    HashSet<Integer> set;
     public boolean twoSumBSTs(TreeNode root1, TreeNode root2, int target) {
-        if(root1 == null || root2 == null) return false;
-        
-        set = new HashSet<>();
-        dfs(root1);
-        
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(root2);
-        while(!q.isEmpty())
-        {
-            TreeNode curr = q.poll();
-            if(set.contains(target - curr.val)) return true;
-            if(curr.left!=null) q.add(curr.left);
-            if(curr.right!=null) q.add(curr.right);
-        }
-        
-        return false;
+        return dfs(root1,root2,target);
     }
     
-    private void dfs(TreeNode root)
+    private boolean dfs(TreeNode root1, TreeNode root2, int target)
     {
         //base
-        if(root == null) return;
+        if(root1 == null) return false;
         
-        dfs(root.left);
-        set.add(root.val);
-        dfs(root.right);
+        if(binarySearch(root2,target - root1.val)) return true;
+        
+        return dfs(root1.left,root2,target) || dfs(root1.right,root2,target);
+    }
+    
+    private boolean binarySearch(TreeNode root2, int target2)
+    {
+        if(root2==null) return false;
+        
+        if(root2.val == target2) return true;
+        else if(root2.val>target2) return binarySearch(root2.left,target2);
+        else return binarySearch(root2.right,target2);
     }
 }
