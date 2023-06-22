@@ -4,13 +4,13 @@ class Solution {
         
         int n = prices.length;
         int[] dp = new int[n+1];
-        int max = Integer.MIN_VALUE;
-        for(int i = 1;i<n;i++)
+        
+        for(int i = 1;i<=n;i++)
         {
-            dp[i] = Math.max(dp[i-1],dp[i-1] + prices[i] - prices[i-1]);
-            max = Math.max(max,dp[i]);
+            if(i==1) dp[i] = 0;
+            else dp[i] = Math.max(dp[i-1], dp[i-1] + prices[i-1] - prices[i-2]);
         }
         
-        return max==Integer.MIN_VALUE?0:max;
+        return dp[n] == 0?0:dp[n];
     }
 }
