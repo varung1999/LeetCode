@@ -3,27 +3,21 @@ class Solution {
         if(nums == null || nums.length == 0) return new int[]{};
         
         int n = nums.length;
-        
         int[] res = new int[n];
-        
-        for(int i = 0;i<n;i++)
+        Stack<Integer> stack = new Stack<>();
+        for(int i = n*2-1;i>=0;i--)
         {
-            boolean maxFound = false;
-            for(int j = i+1;j<2*n;j++)
+            while(!stack.isEmpty() && nums[stack.peek()]<=nums[i%n])
             {
-                int index = j%n;
-                
-                if(nums[i]<nums[index])
-                {
-                    res[i] = nums[index];
-                    maxFound = true;
-                    break;
-                }
+                stack.pop();
             }
             
-            if(!maxFound) res[i] = -1;
+            if(stack.isEmpty()) res[i%n] = -1;
+            else res[i%n] = nums[stack.peek()];
+            
+            stack.push(i%n);
         }
-        
-        return res;
+    return res;
     }
+    
 }
