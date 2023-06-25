@@ -4,20 +4,21 @@ class Solution {
         
         int n = nums.length;
         int[] res = new int[n];
+        Arrays.fill(res,-1);
         Stack<Integer> stack = new Stack<>();
-        for(int i = n*2-1;i>=0;i--)
+        
+        for(int i = 0;i<2*n;i++)
         {
-            while(!stack.isEmpty() && nums[stack.peek()]<=nums[i%n])
+            while(!stack.isEmpty() && nums[i%n]>nums[stack.peek()])
             {
+                res[stack.peek()] = nums[i%n];
                 stack.pop();
             }
             
-            if(stack.isEmpty()) res[i%n] = -1;
-            else res[i%n] = nums[stack.peek()];
-            
-            stack.push(i%n);
+            if(i<n) stack.push(i);
         }
-    return res;
+        
+        return res;
     }
     
 }
