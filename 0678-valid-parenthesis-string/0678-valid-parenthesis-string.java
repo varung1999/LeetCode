@@ -1,29 +1,26 @@
 class Solution {
     public boolean checkValidString(String s) {
-        if(s == null || s.length() == 0) return true;
-        //if(s.length()%2!=0) return false;
+        // if(s == null || s.length() == 0) return false;
         
-        Stack<Integer> brackets = new Stack<>();
-        Stack<Integer> stars = new Stack<>();
+        int left = 0, right = 0;
         
-        for(int i = 0;i<s.length();i++)
+        for(int i =0;i<s.length();i++)
         {
-            char c = s.charAt(i);
-            if(c == '(') brackets.push(i);
-            else if(c=='*') stars.push(i);
-            
-            else if(!brackets.isEmpty()) brackets.pop();
-            else if(!stars.isEmpty()) stars.pop();
-            
-            else return false;
+            if((s.charAt(i) == '(')|| (s.charAt(i) == '*')) left++;
+            else left --;
+            if(left<0) return false;
         }
         
-        while(!brackets.isEmpty() && !stars.isEmpty() && brackets.peek()<stars.peek())
+        if(left == 0) return true;
+        
+        for(int i = s.length() - 1;i>=0;i--)
         {
-            brackets.pop();
-            stars.pop();
+            if((s.charAt(i)==')') || (s.charAt(i) == '*')) right++;
+            else right --;
+            if(right<0) return false;
         }
         
-        return brackets.isEmpty();
+        
+        return true;
     }
 }
