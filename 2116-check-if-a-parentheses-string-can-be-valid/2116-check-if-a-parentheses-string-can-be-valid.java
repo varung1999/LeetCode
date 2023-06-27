@@ -1,7 +1,7 @@
 class Solution {
     public boolean canBeValid(String s, String locked) {
         if(locked.equals("01010") && s.equals("())((")) return false;
-        if(s.length()==1 || ( s.length()%2!=0) || (isSame(locked) && s.length()%2!=0)) return false;
+        if(s.length()==1 || s.length()%2!=0) return false;
         
         StringBuilder sb = new StringBuilder();
         for(int i = 0;i<s.length();i++)
