@@ -3,28 +3,25 @@
 
 public class Solution extends Relation {
     public int findCelebrity(int n) {
-        if(n == 0) return -1;
         
-        int[] arr = new int[n];
-        
+        int celeb = 0;
         for(int i = 0;i<n;i++)
         {
-            for(int j = 0;j<n;j++)
-            {
-                if(i == j) continue;
-                
-                if(knows(j,i)){
-                    arr[i]++;
-                    arr[j]--;
-                }
-            }
+            if(knows(celeb,i)) celeb = i;
         }
         
-        for(int i = 0;i<n;i++){
-            if(arr[i] == n-1) return i;
-        }
+        if(helper(celeb,n)) return celeb;
         
         return -1;
-        
+    }
+    
+    private boolean helper(int i,int n)
+    {
+        for(int j = 0 ;j<n;j++)
+        {
+            if(i == j) continue;
+            if(knows(i,j) || !knows(j,i)) return false;
+        }
+        return true;
     }
 }
