@@ -13,7 +13,7 @@ public class Solution extends Relation {
             {
                 if(i == j) continue;
                 
-                if(knows(j,i) && !knows(i,j)){
+                if(knows(j,i)){
                     arr[i]++;
                     arr[j]--;
                 }
