@@ -19,9 +19,10 @@ class Node {
 */
 
 class Solution {
-    HashMap<Integer,Node> map = new HashMap<>();
+    HashMap<Integer,Node> map;
     public Node cloneGraph(Node node) {
-        if(node == null) return node;
+        if(node == null) return null;
+        map = new HashMap<>();
         
         return helper(node);
     }
@@ -34,10 +35,11 @@ class Solution {
         
         Node copyNode = new Node(node.val,new ArrayList<Node>());
         map.put(copyNode.val,copyNode);
-        for(Node neighbor : node.neighbors)
+        for(Node neighbor:node.neighbors)
         {
             copyNode.neighbors.add(helper(neighbor));
         }
+        
         return copyNode;
     }
 }
