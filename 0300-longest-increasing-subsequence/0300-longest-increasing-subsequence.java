@@ -3,21 +3,35 @@ class Solution {
     public int lengthOfLIS(int[] nums) {
         if(nums == null || nums.length == 0) return 0;
         int n = nums.length;
-        int[] dp = new int[n];
         
-        Arrays.fill(dp,1);
-        int max = 1;
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(nums[0]);
+        
         for(int i = 1;i<nums.length;i++)
         {
-            for(int j = 0;j<i;j++)
-            {
-                if(nums[j]<nums[i])
-                {
-                    dp[i] = Math.max(dp[i],dp[j] + 1);
-                }
+            if(nums[i]>list.get(list.size()-1)) list.add(nums[i]);
+            else{
+                int index = binarySearch(list,nums[i]);
+                if(index!=-1) list.set(index,nums[i]);
             }
-            max = Math.max(max,dp[i]);
-        }    
-        return max;
+        }
+        
+        return list.size();
+    }
+    
+    private int binarySearch(ArrayList<Integer> list, int target)
+    {
+        int low = 0, high = list.size()-1;
+        
+        while(low<=high)
+        {
+            int mid = low + (high - low)/2;
+            
+            if(list.get(mid) == target) return -1;
+            else if(list.get(mid)<target) low = mid+1;
+            else high = mid - 1;
+        }
+        
+        return low;
     }
 }
