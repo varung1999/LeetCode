@@ -21,7 +21,7 @@ class Solution {
     
     private int binarySearch(ArrayList<Integer> list, int target)
     {
-        int low = 0, high = list.size()-1;
+        int low = 0, high = list.size();
         
         while(low<=high)
         {
