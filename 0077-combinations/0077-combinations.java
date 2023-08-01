@@ -19,14 +19,19 @@ class Solution {
             return;
         }
         
-        //if(curr >= n) return;
+        if(curr > n) return;
         
         //logic
-       for(int num = curr;num<=n;num++)
-       {
-           path.add(num);
-           dfs(n,k,num+1,path);
-           path.remove(path.size()-1);
-       }
+       // for(int num = curr;num<=n;num++)
+       // {
+       //     path.add(num);
+       //     dfs(n,k,num+1,path);
+       //     path.remove(path.size()-1);
+       // }
+        
+        dfs(n,k,curr+1,path);
+        path.add(curr);
+        dfs(n,k,curr+1,path);
+        path.remove(path.size()-1);
     }
 }
