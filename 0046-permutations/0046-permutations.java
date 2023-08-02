@@ -4,15 +4,15 @@ class Solution {
         result = new ArrayList<>();
         if(nums == null || nums.length == 0) return result;
         
-        dfs(nums,new ArrayList<>(),new boolean[nums.length]);
+        dfs(nums,0,new ArrayList<>(),new boolean[nums.length]);
         
         return result;
     }
     
-    private void dfs(int[] nums, ArrayList<Integer> path, boolean[] visited)
+    private void dfs(int[] nums, int index, ArrayList<Integer> path, boolean[] visited)
     {
         //base
-        if(path.size()==nums.length)
+        if(path.size() == nums.length)
         {
             result.add(new ArrayList<>(path));
             return;
@@ -23,13 +23,12 @@ class Solution {
         {
             if(!visited[i])
             {
-                visited[i] = true;
                 path.add(nums[i]);
-                dfs(nums,path,visited);
-                path.remove(path.size()-1);
+                visited[i] = true;
+                dfs(nums,i+1,path,visited);
                 visited[i] = false;
+                path.remove(path.size()-1);
             }
         }
-
     }
 }
