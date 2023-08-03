@@ -1,26 +1,30 @@
 class Solution {
+    List<String> result;
     List<String> map = new ArrayList<>(List.of("","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"));
-    List<String> ans = new ArrayList<>();
     public List<String> letterCombinations(String digits) {
-        if(digits == null || digits.length() == 0) return ans;
-        backtrack(digits,"",0);
-        return ans;
+        result = new ArrayList<>();
+        if(digits == null || digits.length() == 0) return result;
+        
+        backtracking(digits,"",0);
+        
+        return result;
     }
     
-    private void backtrack(String digits, String path, int idx)
+    private void backtracking(String digits, String path, int index)
     {
         //base
-        if(digits.length()==path.length())
+        if(digits.length() == path.length())
         {
-            ans.add(path);
+            result.add(path);
             return;
         }
         
         //logic
-        String currDigit = map.get(digits.charAt(idx)-'0');
+        String currDigit = map.get(digits.charAt(index)-'0');
+        
         for(int i = 0;i<currDigit.length();i++)
         {
-            backtrack(digits,path+currDigit.charAt(i),idx+1);
+            backtracking(digits,path+currDigit.charAt(i),index+1);
         }
     }
 }
