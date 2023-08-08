@@ -31,7 +31,7 @@ class Solution {
         inorder(root.left);
         root.left = null;
         curr.right = root;
-        curr = root;
+        curr = curr.right;
         inorder(root.right);
     }
 }
