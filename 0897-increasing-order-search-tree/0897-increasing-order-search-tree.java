@@ -14,31 +14,24 @@
  * }
  */
 class Solution {
-    List<Integer> list;
+    TreeNode curr;
     public TreeNode increasingBST(TreeNode root) {
-        if(root == null) return root;
-        list = new ArrayList<>();
+        TreeNode ans = new TreeNode(0);
+        curr = ans;
+        inorder(root);
         
-        dfs(root);
-        
-       TreeNode res = new TreeNode(0), curr = res;
-        
-        for(int val: list)
-        {
-            curr.right = new TreeNode(val);
-            curr = curr.right;
-        }
-        
-        return res.right;
+        return ans.right;
     }
     
-    private void dfs(TreeNode root)
-    {
+    private void inorder(TreeNode root){
         //base
         if(root == null) return;
         
-        dfs(root.left);
-        list.add(root.val);
-        dfs(root.right);
+        //logic
+        inorder(root.left);
+        root.left = null;
+        curr.right = root;
+        curr = root;
+        inorder(root.right);
     }
 }
