@@ -2,29 +2,23 @@ class Solution {
     public boolean isInterleave(String s1, String s2, String s3) {
         if(s1.length() + s2.length() != s3.length()) return false;
         
-        int[][] memo = new int[s1.length()][s2.length()];
+        boolean[][] dp = new boolean[s1.length() + 1][s2.length() + 1];
         
-        for(int[] arr: memo) Arrays.fill(arr,-1);
+        for(int i = 0;i<dp.length;i++)
+        {
+            for(int j = 0;j<dp[0].length;j++)
+            {
+                if(i==0 && j == 0) dp[i][j] = true;
+                else if(i==0)
+                {
+                    dp[i][j] = dp[i][j-1] && s2.charAt(j-1) == s3.charAt(i+j-1);
+                }
+                else if(j==0) dp[i][j] = dp[i-1][j] && s1.charAt(i-1) == s3.charAt(i+j-1);
+                else 
+                    dp[i][j] = (dp[i][j-1] && s2.charAt(j-1) == s3.charAt(i+j-1)) || (dp[i][j] = dp[i-1][j] && s1.charAt(i-1) == s3.charAt(i+j-1));
+            }
+        }
         
-        return helper(s1,0,s2,0,s3,0,memo);
-    }
-    
-    private boolean helper(String a, int i, String b, int j, String c, int k,int[][] memo)
-    {
-        //base
-        if(i == a.length()) return b.substring(j).equals(c.substring(k));
-        if(j == b.length()) return a.substring(i).equals(c.substring(k));
-        
-        if(memo[i][j]>=0) return memo[i][j] == 1? true: false;
-        
-        
-        //logic
-        boolean ans = false;
-        
-        if(c.charAt(k) == a.charAt(i) && helper(a,i+1,b,j,c,k+1,memo) || c.charAt(k) == b.charAt(j) && helper(a,i,b,j+1,c,k+1,memo)) ans = true;
-        
-        memo[i][j] = ans == true? 1:0;
-        
-        return ans;
+        return dp[s1.length()][s2.length()];
     }
 }
