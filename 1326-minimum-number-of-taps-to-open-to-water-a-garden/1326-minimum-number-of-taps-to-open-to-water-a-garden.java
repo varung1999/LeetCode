@@ -7,7 +7,7 @@ class Solution {
         for(int i = 0;i<=n;i++)
         {
             int s = Math.max(0,i - ranges[i]), e = i + ranges[i];
-            maxReach[s] = e;
+            maxReach[s] = Math.max(maxReach[s],e);
         }
         
         //for(int i:maxReach) System.out.print(i+" ");
