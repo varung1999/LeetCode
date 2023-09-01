@@ -1,35 +1,31 @@
 class Solution {
     public int shortestWay(String source, String target) {
         
-        boolean[] sChar = new boolean[26];
-        for(char c: source.toCharArray())
-        {
-            sChar[c-'a']= true;
+        int[] count = new int[26];
+        for(char c:source.toCharArray()) {
+            count[c-'a']++;
         }
         
-        for(char c:target.toCharArray())
-        {
-            if(!sChar[c-'a']) return -1;
+        for(char c:target.toCharArray()){
+            if(count[c-'a']==0) return -1;
         }
         
-        int s = 0, t = 0;
-        int ans = 0;
+        int result = 1, sourceIndex = 0, targetIndex = 0;
         
-        while(t<target.length())
+        while(targetIndex<target.length())
         {
-            if(source.charAt(s)==target.charAt(t)) {
-                t++;
+            if(sourceIndex >= source.length())
+            {
+                result++;
+                sourceIndex = 0; 
             }
-            s++;
-            
-            if(s==source.length()) {
-                s = 0;
-                ans++;
+            if(source.charAt(sourceIndex)==target.charAt(targetIndex))
+            {
+                targetIndex++;
             }
+            sourceIndex++;
         }
         
-        if(s>0) ans++;
-        
-        return ans;
+        return result;
     }
 }
