@@ -1,40 +1,40 @@
 class Solution {
     public int shortestWay(String source, String target) {
+        if(source == null || source.length() == 0) return 0;
         
-//         int[] count = new int[26];
-//         for(char c:source.toCharArray()) {
-//             count[c-'a']++;
-//         }
+        HashMap<Character,List<Integer>> map = new HashMap<>();
         
-//         for(char c:target.toCharArray()){
-//             if(count[c-'a']==0) return -1;
-//         }
-        
-        int result = 0, targetIndex = 0;
-        
-        while (targetIndex < target.length()) {
-        int sourceIndex = 0;
-        int prevTargetIndex = targetIndex;
-
-        while (sourceIndex < source.length() && targetIndex < target.length()) {
-            if (source.charAt(sourceIndex) == target.charAt(targetIndex)) {
-                sourceIndex++;
-                targetIndex++;
-            } else {
-                sourceIndex++;
+        for(int i =0;i<source.length();i++)
+        {
+            char c = source.charAt(i);
+            if(!map.containsKey(c))
+            {
+                map.put(c,new ArrayList<>());
             }
+            map.get(c).add(i);
         }
-
-        if (prevTargetIndex == targetIndex) {
-            // If targetIndex didn't change, it means no progress was made,
-            // and we can't match the characters anymore.
-            return -1;
+        
+        int i = 0, pos = 0, t1 = target.length(), s1 = source.length(), result = 1;
+        
+        while(i<t1)
+        {
+            char c = target.charAt(i);
+            if(!map.containsKey(c)) return -1;
+            
+            List<Integer> list = map.get(c);
+            int k = Collections.binarySearch(list,pos);
+            if(k<0) k = -k - 1;
+            if(k == list.size()){
+                pos = 0;
+                result++;
+            }
+            else{
+                pos = list.get(k) + 1;
+                i++;
+            }
+            
         }
-
-        result++;
+        
+        return result;
     }
-
-    return result;
-    }
-
 }
