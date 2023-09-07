@@ -14,23 +14,53 @@ class Solution {
         
         ListNode dummy = new ListNode(-1);
         dummy.next = head;
+        int size = helper(head);
+        ListNode prev = null, curr = dummy;
         
-        ListNode prev = dummy;
-        for(int i = 0;i<left - 1;i++)
+        for(int i = 0;i<left;i++)
         {
-            prev = prev.next;
+            prev = curr;
+            curr = curr.next;
         }
-        //prev - > 1
-        ListNode curr = prev.next;//curr -> 2
+        ListNode rightPrevNode = dummy;
         
-        for(int i = 0;i<right - left;i++)
+        for(int i = 0;i<right;i++)
         {
-            ListNode nextNode = curr.next; //nextNode -> 3
-            curr.next = nextNode.next;
-            nextNode.next = prev.next;
-            prev.next = nextNode;
+            rightPrevNode = rightPrevNode.next;
         }
+        ListNode rightNode = new ListNode(-1);
+        rightNode = rightPrevNode.next;
+        rightPrevNode.next = null;
         
+        curr = reverse(curr);
+        System.out.print(curr.val+" "+rightPrevNode.val);
+        prev.next = curr;
+        while(curr.next!=null)
+        {
+            curr = curr.next;
+        }
+        //System.out.print(curr.val);
+        curr.next = rightNode;
+        //System.out.print(prev.val+" "+curr.val+" "+rightPrevNode.val+" "+rightNode.val);
         return dummy.next;
+    }
+    
+    private int helper(ListNode head)
+    {
+        int count = 0;
+        while(head!=null)
+        {
+            count++;
+            head = head.next;
+        }
+        return count;
+    }
+    
+    ListNode reverse(ListNode head) {
+        if (head.next == null) return head;
+        ListNode last = reverse(head.next);
+        head.next.next = head;
+        head.next = null;
+        return last;
     }
 }
