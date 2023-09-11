@@ -14,25 +14,11 @@ class Solution {
             map.get(groupSizes[i]).add(i);
         }
         
-        for(Map.Entry<Integer,List<Integer>> entry: map.entrySet())
-        {
+        for (Map.Entry<Integer, List<Integer>> entry : map.entrySet()) {
             int arrSize = entry.getKey();
             List<Integer> temp = entry.getValue();
-            
-            if(arrSize == temp.size()) result.add(temp);
-            else{
-                List<Integer> tempArray = new ArrayList<>(arrSize);
-                for(int i = 0;i<temp.size();i++)
-                {
-                    if(tempArray.size()>=arrSize)
-                    {
-                        result.add(tempArray);
-                        tempArray = new ArrayList<>(arrSize);
-                    }
-                    tempArray.add(temp.get(i));
-                }
-                if(!tempArray.isEmpty()) result.add(tempArray);
-                
+            for (int i = 0; i < temp.size(); i += arrSize) {
+                result.add(temp.subList(i, Math.min(i + arrSize, temp.size())));
             }
         }
         
