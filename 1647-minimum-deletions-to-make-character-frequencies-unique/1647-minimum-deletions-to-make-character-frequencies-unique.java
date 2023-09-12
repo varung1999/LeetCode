@@ -3,28 +3,27 @@ class Solution {
         if(s == null || s.length() == 0) return 0;
         //a - 1  b - 4   c - 1 e - 1
         
-        char[] strArray = s.toCharArray();
+        int[] arr = new int[26];
         
-        Arrays.sort(strArray);
-        
-        HashMap<Character,Integer> map = new HashMap<>();
-        for(char c: strArray) map.put(c,map.getOrDefault(c,0)+1);
+        for(char c: s.toCharArray()){
+            arr[c-'a']++;
+        }
         
         HashSet<Integer> visited = new HashSet<>();
         
         int count = 0;
-        for(char key: map.keySet())
+        for(int i : arr)
         {
-            int val = map.get(key);
-            
-            if(!visited.contains(val)) visited.add(val);
+            if(i!=0){
+                 if(!visited.contains(i)) visited.add(i);
             else{
-                while(visited.contains(val) && val>0)
+                while(visited.contains(i) && i>0)
                 {
-                    val--;
+                    i--;
                     count++;
                 }
-                if(val>0) visited.add(val);
+                if(i>0) visited.add(i);
+            }   
             }
         }
         return count;
