@@ -6,27 +6,26 @@ class Solution {
         
         for(int i = 0;i<s.length();i++)
         {
-            count++;
-            for(int j = 0;j<i;j++)
-            {
-                if(isPalindrome(s.substring(j,i+1))) count++;
-            }
+            count+= helper(s,i,i);
+            count+= helper(s,i,i+1);
         }
         
         return count;
     }
     
-    private boolean isPalindrome(String s)
+    private int helper(String s, int left, int right)
     {
-        int i = 0, j = s.length() -1;
+        int ans = 0;
         
-        while(i<j)
+        while(left>=0 && right<s.length())
         {
-            if(s.charAt(i)!=s.charAt(j)) return false;
-            i++;
-            j--;
+            if(s.charAt(left)!=s.charAt(right)) break;
+            
+            left--;
+            right++;
+            ans++;
         }
         
-        return true;
+        return ans;
     }
 }
