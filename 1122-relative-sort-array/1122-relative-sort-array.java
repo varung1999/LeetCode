@@ -2,31 +2,24 @@ class Solution {
     public int[] relativeSortArray(int[] arr1, int[] arr2) {
         if(arr1 == null || arr2 == null) return new int[]{};
         
-        TreeMap<Integer,Integer> map = new TreeMap<>();
-        for(int i:arr1) map.put(i,map.getOrDefault(i,0)+1);
+        int count[] = new int[1001];
+        for(int i:arr1) count[i]++;
         
-        int[] res = new int[arr1.length];
-        int k = 0;
-        for(int i = 0;i<arr2.length;i++)
+        int i = 0;
+        for(int k:arr2)
         {
-            int count = map.get(arr2[i]);
-            while(count!=0)
+            while(count[k]-->0)
             {
-                count--;
-                res[k++] = arr2[i];
+                arr1[i++] = k;
             }
-            map.remove(arr2[i]);
         }
         
-        for(int key:map.keySet())
+        for(int k = 0;k<count.length;k++)
         {
-            int val = map.get(key);
-            while(val!=0){
-                val--;
-                res[k++] = key;
-            }
-            //map.remove(key);
+            while(count[k]-->0) arr1[i++] = k;
         }
-        return res;
+        
+        return arr1;
+        
     }
 }
