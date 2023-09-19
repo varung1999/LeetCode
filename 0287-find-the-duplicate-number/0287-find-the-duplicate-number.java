@@ -8,8 +8,7 @@ class Solution {
             int curr = Math.abs(nums[i]);
             if(nums[curr]<0)
             {
-                ans = curr;
-                break;
+                return curr;
             }
             nums[curr]*=-1;
         }
