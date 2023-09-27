@@ -6,12 +6,12 @@ class Solution {
         
         set = new HashSet<>();
         
-        dfs(s,0,set);
+        dfs(s,0);
         
         return max;
     }
     
-    private void dfs(String s, int index,HashSet<String> set)
+    private void dfs(String s, int index)
     {
         //base
         if(index == s.length()){
@@ -24,7 +24,7 @@ class Solution {
         {
             if(!set.contains(s.substring(index,i))){
                 set.add(s.substring(index,i));
-                dfs(s,i,set);
+                dfs(s,i);
                 set.remove(s.substring(index,i));
             }
         }
