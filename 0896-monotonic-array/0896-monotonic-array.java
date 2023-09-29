@@ -2,25 +2,30 @@ class Solution {
     public boolean isMonotonic(int[] nums) {
         if(nums == null || nums.length == 0) return true;
         
-        boolean first = true;
-        for(int i = 1;i<nums.length;i++)
+        Stack<Integer> stack = new Stack<>();
+        boolean isIncreasing = true;
+        
+        for(int i:nums)
         {
-            if(nums[i]<nums[i-1]) {
-                first = false;
+            if(!stack.isEmpty() && stack.peek()>i){
+                isIncreasing = false;
                 break;
             }
+            stack.push(i);
         }
         
+        stack = new Stack<>();
+        boolean isDecreasing = true;
         
-        boolean second = true;
-        
-        for(int i = 1;i<nums.length;i++)
+        for(int i:nums)
         {
-            if(nums[i]>nums[i-1]){
-                second = false;
+            if(!stack.isEmpty() && stack.peek()<i){
+                isDecreasing = false;
                 break;
             }
+            stack.push(i);
         }
-        return (first | second);
+        
+        return isIncreasing | isDecreasing;
     }
 }
