@@ -19,22 +19,22 @@ class Solution {
             {
                 int r = curr[0] + dir[0];
                 int c = curr[1] + dir[1];
-                int pathCount = distanceTillCurr + 1;
+                int currPath = distanceTillCurr+1;
                 while(r>=0 && c>=0 && r<maze.length && c<maze[0].length && maze[r][c] == 0)
                 {
                     r = r + dir[0];
                     c = c + dir[1];
-                    pathCount++; 
+                    currPath++; 
                 }
                 
                 r = r - dir[0];
                 c = c - dir[1];
                 
-                pathCount--;
+                currPath--;
                 
-                if(!Arrays.equals(curr,destination) && pathCount<distance[r][c])
+                if(!Arrays.equals(curr,destination) && currPath<distance[r][c])
                 {
-                    distance[r][c] = pathCount;
+                    distance[r][c] = currPath;
                     q.add(new int[]{r,c});
                 }
             }
