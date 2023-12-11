@@ -5,17 +5,21 @@ class Solution {
         int n = arr.length;
         int quarter = n/4;
         
-        HashMap<Integer,Integer> map = new HashMap<>();
-        for(int i : arr)
+        
+        int count = 1, res = -1;
+        
+        for(int i = 1;i<n;i++)
         {
-            map.put(i,map.getOrDefault(i,0)+1);
+            if(arr[i-1] == arr[i])
+            {
+                count++;
+                if(count>quarter) return arr[i];
+            }
+            else{
+                count = 1;
+            }
         }
         
-        for(int key: map.keySet())
-        {
-            if(map.get(key)>quarter) return key;
-        }
-        
-        return -1;
+        return arr[0];
     }
 }
