@@ -15,13 +15,12 @@ class Solution {
                 if(index!=-1) list.set(index,nums[i]);
             }
         }
-        
         return list.size();
     }
     
     private int binarySearch(ArrayList<Integer> list, int target)
     {
-        int low = 0, high = list.size();
+        int low = 0, high = list.size()-1;
         
         while(low<=high)
         {
