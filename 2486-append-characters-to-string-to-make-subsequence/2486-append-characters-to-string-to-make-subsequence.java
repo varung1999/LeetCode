@@ -2,25 +2,17 @@ class Solution {
     public int appendCharacters(String s, String t) {
         if(s == null || s.length() == 0) return t.length();
         
-        int n = s.length(), m = t.length();
-        int j = 0, i = 0;
-        while(i<m)
-        {
-            var isFound = false;
-            while(i<m && j<n){
-                if(s.charAt(j) == t.charAt(i)){
-                    j++;
-                    i++;
-                    isFound = true;
-                }
-                else j++;
+        int sLength = s.length(), tLength = t.length();
+        
+        int sIndex = 0, tIndex = 0;
+        
+        while(sIndex<sLength && tIndex<tLength){
+            if(s.charAt(sIndex) == t.charAt(tIndex)){
+                tIndex++;
             }
-            if(j == n && !isFound){
-                break;
-            }
+            sIndex++;
         }
         
-        return m - i; 
-
+        return tLength - tIndex;
     }
 }
