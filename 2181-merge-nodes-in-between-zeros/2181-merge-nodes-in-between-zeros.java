@@ -20,7 +20,6 @@ class Solution {
         while(end!=null){
             sum+= end.val;
             end = end.next;
-            System.out.println(sum);
             if(end!=null && (end.val == 0 && start.val == 0)){
                 temp.next = new ListNode(sum);
                 temp = temp.next;
